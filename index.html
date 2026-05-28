@@ -304,28 +304,50 @@
   </div>
 
   <!-- Barra de Navegação Flutuante em Pílula (Design System v2 White) -->
-  <nav class="fixed top-0 left-0 w-full px-4 md:px-10 py-5 flex justify-center z-50">
-    <div class="bg-[rgba(255,255,255,0.88)] backdrop-blur-[20px] -webkit-backdrop-blur-[20px] border border-[var(--c-border)] rounded-full px-4 md:px-6 py-2.5 flex items-center justify-between gap-6 md:gap-12 shadow-[var(--shadow-sm)] w-full max-w-4xl">
-      <a href="#" class="flex items-center">
-        <img src="motorlaff.com.br/assets/ba1ac99c27c415f1_cropped-cropped-logo.png" alt="Motorlaff Logo" class="h-8 w-auto object-contain" />
-      </a>
+  <header class="fixed top-0 left-0 w-full px-4 md:px-10 py-5 flex justify-center z-50">
+    <nav id="navContainer" class="bg-[rgba(255,255,255,0.88)] backdrop-blur-[20px] -webkit-backdrop-blur-[20px] border border-[var(--c-border)] rounded-full px-4 md:px-6 py-2.5 flex flex-col items-center justify-center shadow-[var(--shadow-sm)] w-full max-w-4xl transition-all duration-300">
       
-      <div class="hidden md:flex items-center gap-8">
-        <a href="#sobrenos" class="font-['Manrope'] font-medium text-[0.82rem] text-[var(--c-text-3)] transition-colors duration-200 hover:text-[var(--c-text)] whitespace-nowrap">Sobre nós</a>
-        <a href="#servicos" class="font-['Manrope'] font-medium text-[0.82rem] text-[var(--c-text-3)] transition-colors duration-200 hover:text-[var(--c-text)] whitespace-nowrap">Serviços</a>
-        <a href="#diferenciais" class="font-['Manrope'] font-medium text-[0.82rem] text-[var(--c-text-3)] transition-colors duration-200 hover:text-[var(--c-text)] whitespace-nowrap">Diferenciais</a>
-        <a href="#clientes" class="font-['Manrope'] font-medium text-[0.82rem] text-[var(--c-text-3)] transition-colors duration-200 hover:text-[var(--c-text)] whitespace-nowrap">Clientes</a>
-        <a href="#localizacao" class="font-['Manrope'] font-medium text-[0.82rem] text-[var(--c-text-3)] transition-colors duration-200 hover:text-[var(--c-text)] whitespace-nowrap">Contato</a>
+      <!-- Linha Principal -->
+      <div class="w-full flex items-center justify-between gap-4 md:gap-12">
+        <a href="#" class="flex items-center" aria-label="Ir para o topo da página">
+          <img src="motorlaff.com.br/assets/ba1ac99c27c415f1_cropped-cropped-logo.png" alt="Motorlaff Logo" width="128" height="32" class="h-8 w-auto object-contain" />
+        </a>
+        
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#sobrenos" class="font-['Manrope'] font-medium text-[0.82rem] text-[var(--c-text-3)] transition-colors duration-200 hover:text-[var(--c-text)] whitespace-nowrap">Sobre nós</a>
+          <a href="#servicos" class="font-['Manrope'] font-medium text-[0.82rem] text-[var(--c-text-3)] transition-colors duration-200 hover:text-[var(--c-text)] whitespace-nowrap">Serviços</a>
+          <a href="#diferenciais" class="font-['Manrope'] font-medium text-[0.82rem] text-[var(--c-text-3)] transition-colors duration-200 hover:text-[var(--c-text)] whitespace-nowrap">Diferenciais</a>
+          <a href="#clientes" class="font-['Manrope'] font-medium text-[0.82rem] text-[var(--c-text-3)] transition-colors duration-200 hover:text-[var(--c-text)] whitespace-nowrap">Clientes</a>
+          <a href="#localizacao" class="font-['Manrope'] font-medium text-[0.82rem] text-[var(--c-text-3)] transition-colors duration-200 hover:text-[var(--c-text)] whitespace-nowrap">Contato</a>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <a href="https://wa.me/554130103333?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento!" target="_blank" rel="noopener noreferrer" class="bg-[var(--c-engine)] text-white font-['Oswald'] text-[0.75rem] font-medium tracking-[0.12em] uppercase px-5 py-2.5 rounded-full border-none cursor-pointer transition-colors duration-200 hover:bg-[var(--c-forge)] flex items-center gap-2 whitespace-nowrap">
+            <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Fale Conosco
+          </a>
+          
+          <!-- Botão Hambúrguer Mobile -->
+          <button id="menuToggle" aria-label="Abrir Menu de Navegação" class="md:hidden text-[var(--c-text)] hover:text-[var(--c-forge)] transition-all duration-300 text-xl focus:outline-none p-1.5 flex items-center justify-center rounded-full hover:bg-[var(--c-surface-2)]">
+            <i class="fa-solid fa-bars transition-transform duration-300"></i>
+          </button>
+        </div>
       </div>
 
-      <a href="https://wa.me/554130103333?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento!" target="_blank" rel="noopener noreferrer" class="bg-[var(--c-engine)] text-white font-['Oswald'] text-[0.75rem] font-medium tracking-[0.12em] uppercase px-5 py-2.5 rounded-full border-none cursor-pointer transition-colors duration-200 hover:bg-[var(--c-forge)] flex items-center gap-2 whitespace-nowrap">
-        <i class="fa-brands fa-whatsapp"></i> Fale Conosco
-      </a>
-    </div>
-  </nav>
+      <!-- Links Mobile (Expandível via GSAP) -->
+      <div id="mobileMenu" class="w-full hidden flex-col items-center gap-4 pt-4 pb-2 border-t border-[var(--c-border)] mt-4">
+        <a href="#sobrenos" class="mobile-link font-['Manrope'] font-semibold text-sm text-[var(--c-text-2)] transition-colors duration-200 hover:text-[var(--c-forge)] py-1 w-full text-center">Sobre nós</a>
+        <a href="#servicos" class="mobile-link font-['Manrope'] font-semibold text-sm text-[var(--c-text-2)] transition-colors duration-200 hover:text-[var(--c-forge)] py-1 w-full text-center">Serviços</a>
+        <a href="#diferenciais" class="mobile-link font-['Manrope'] font-semibold text-sm text-[var(--c-text-2)] transition-colors duration-200 hover:text-[var(--c-forge)] py-1 w-full text-center">Diferenciais</a>
+        <a href="#clientes" class="mobile-link font-['Manrope'] font-semibold text-sm text-[var(--c-text-2)] transition-colors duration-200 hover:text-[var(--c-forge)] py-1 w-full text-center">Clientes</a>
+        <a href="#localizacao" class="mobile-link font-['Manrope'] font-semibold text-sm text-[var(--c-text-2)] transition-colors duration-200 hover:text-[var(--c-forge)] py-1 w-full text-center">Contato</a>
+      </div>
+
+    </nav>
+  </header>
 
   <!-- Wrapper Principal -->
   <div class="wrapper">
+    <main>
 
     <!-- DOBRA 02: HERO SECTION -->
     <section class="min-h-screen relative flex items-center justify-center overflow-hidden bg-[var(--c-surface)] pt-24 md:pt-0">
@@ -379,7 +401,7 @@
           <div class="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-[var(--radius-lg)] p-6 md:p-8 shadow-[var(--shadow-lg)] relative overflow-hidden">
             <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[var(--c-forge)] to-[var(--c-flame)]"></div>
             
-            <h3 class="font-['Oswald'] text-xl font-medium tracking-[0.05em] uppercase mb-6">Especializados em:</h3>
+            <h2 class="font-['Oswald'] text-xl font-medium tracking-[0.05em] uppercase mb-6">Especializados em:</h2>
             
             <ul class="space-y-4">
               <!-- Câmbio -->
@@ -619,7 +641,7 @@
             
             <div class="absolute bottom-6 left-6 right-6 flex items-center justify-between text-white">
               <div>
-                <h4 class="font-['Oswald'] text-xl font-medium tracking-[0.05em] uppercase">Estrutura Completa</h4>
+                <h3 class="font-['Oswald'] text-xl font-medium tracking-[0.05em] uppercase">Estrutura Completa</h3>
                 <p class="font-['Space_Mono'] text-[10px] text-gray-300 tracking-[0.1em] mt-1">CURITIBA - PR (JUVEVÊ)</p>
               </div>
 
@@ -976,8 +998,10 @@
       </div>
     </section>
 
-    <!-- FOOTER DARK (Contraste intencional do Design System v2 White) -->
-    <footer class="bg-[var(--c-engine)] text-white pt-20 pb-10 px-6 md:px-12 relative overflow-hidden">
+  </main>
+
+  <!-- FOOTER DARK (Contraste intencional do Design System v2 White) -->
+  <footer class="bg-[var(--c-engine)] text-white pt-20 pb-10 px-6 md:px-12 relative overflow-hidden">
       <!-- Glow Decorativo no Canto Inferior -->
       <div class="absolute bottom-[-100px] left-[-100px] w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(232,81,10,0.08),transparent_70%)] pointer-events-none rounded-full"></div>
       
@@ -1015,7 +1039,7 @@
 
           <!-- Coluna 2: Contatos -->
           <div class="lg:col-span-3">
-            <h4 class="font-['Space_Mono'] text-[10px] tracking-[0.3em] uppercase text-[var(--c-silver)] mb-6">Contatos</h4>
+            <h3 class="font-['Space_Mono'] text-[10px] tracking-[0.3em] uppercase text-[var(--c-silver)] mb-6">Contatos</h3>
             <ul class="space-y-3">
               <li class="flex items-center gap-2 whitespace-nowrap">
                 <span class="text-[var(--c-forge)] text-xs"><i class="fa-solid fa-phone"></i></span>
@@ -1030,7 +1054,7 @@
 
           <!-- Coluna 3: Endereço -->
           <div class="lg:col-span-3">
-            <h4 class="font-['Space_Mono'] text-[10px] tracking-[0.3em] uppercase text-[var(--c-silver)] mb-6">Endereço</h4>
+            <h3 class="font-['Space_Mono'] text-[10px] tracking-[0.3em] uppercase text-[var(--c-silver)] mb-6">Endereço</h3>
             <div class="flex items-start gap-2">
               <span class="text-[var(--c-forge)] text-xs mt-1"><i class="fa-solid fa-map-location-dot"></i></span>
               <a href="https://maps.google.com/?q=Rua+Almirante+Tamandaré+1275+Juvevê+Curitiba" target="_blank" rel="noopener noreferrer" class="font-['Manrope'] text-sm text-[var(--c-ash)] leading-[1.6] hover:text-[var(--c-forge)] transition-colors duration-200">
@@ -1041,7 +1065,7 @@
 
           <!-- Coluna 4: Redes Sociais / Links Rápidos -->
           <div class="lg:col-span-2">
-            <h4 class="font-['Space_Mono'] text-[10px] tracking-[0.3em] uppercase text-[var(--c-silver)] mb-6">Redes Sociais</h4>
+            <h3 class="font-['Space_Mono'] text-[10px] tracking-[0.3em] uppercase text-[var(--c-silver)] mb-6">Redes Sociais</h3>
             <div class="flex gap-4">
               <a href="https://www.instagram.com/motorlaff_espaco_automotivo_/" target="_blank" rel="noopener noreferrer" aria-label="Instagram da Motorlaff" class="w-10 h-10 rounded-full bg-[rgba(255,255,255,0.06)] hover:bg-[var(--c-forge)] text-white flex items-center justify-center transition-colors duration-300 text-lg">
                 <i class="fa-brands fa-instagram"></i>
@@ -1207,6 +1231,92 @@
       const texto = `Olá! Gostaria de confirmar um Agendamento Rápido!\n\nMeus Dados:\n- Nome: ${nome}\n- Telefone: ${tel}`;
       const url = `https://wa.me/554130103333?text=${encodeURIComponent(texto)}`;
       window.open(url, '_blank');
+    });
+
+    // Gerenciamento do Menu Mobile Hambúrguer com GSAP
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const navContainer = document.getElementById('navContainer');
+    const toggleIcon = menuToggle.querySelector('i');
+    let isMenuOpen = false;
+
+    menuToggle.addEventListener('click', () => {
+      isMenuOpen = !isMenuOpen;
+      
+      if (isMenuOpen) {
+        // Mudar ícone para X com rotação
+        toggleIcon.className = 'fa-solid fa-xmark transition-transform duration-300';
+        toggleIcon.style.transform = 'rotate(90deg)';
+        
+        // Exibir o menu e animar com GSAP
+        mobileMenu.classList.remove('hidden');
+        mobileMenu.style.display = 'flex';
+        mobileMenu.style.opacity = 0;
+        mobileMenu.style.height = 0;
+
+        // Animação da pílula navContainer
+        gsap.to(navContainer, {
+          borderRadius: '24px',
+          duration: 0.4,
+          ease: 'power2.out'
+        });
+
+        // Animação dos itens entrando verticalmente
+        gsap.to(mobileMenu, {
+          height: 'auto',
+          opacity: 1,
+          duration: 0.4,
+          ease: 'power2.out'
+        });
+
+        gsap.fromTo('.mobile-link', 
+          { y: -10, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.3, stagger: 0.05, delay: 0.1, ease: 'power2.out' }
+        );
+
+      } else {
+        closeMobileMenu();
+      }
+    });
+
+    function closeMobileMenu() {
+      if (!isMenuOpen) return;
+      isMenuOpen = false;
+      
+      // Mudar ícone de volta para Hambúrguer
+      toggleIcon.className = 'fa-solid fa-bars transition-transform duration-300';
+      toggleIcon.style.transform = 'rotate(0deg)';
+
+      // Animar fechamento da pílula
+      gsap.to(navContainer, {
+        borderRadius: '9999px', // rounded-full
+        duration: 0.4,
+        ease: 'power2.inOut'
+      });
+
+      // Animar fechamento do menu
+      gsap.to(mobileMenu, {
+        height: 0,
+        opacity: 0,
+        duration: 0.3,
+        ease: 'power2.inOut',
+        onComplete: () => {
+          mobileMenu.classList.add('hidden');
+          mobileMenu.style.display = 'none';
+        }
+      });
+    }
+
+    // Fechar ao clicar em qualquer link mobile
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', closeMobileMenu);
+    });
+
+    // Fechar ao clicar fora da pílula
+    document.addEventListener('click', (e) => {
+      if (isMenuOpen && !navContainer.contains(e.target)) {
+        closeMobileMenu();
+      }
     });
   </script>
 </body>
