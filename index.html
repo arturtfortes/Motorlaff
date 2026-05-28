@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  
+  <!-- SEO Tags -->
+  <title>Motorlaff — Espaço Automotivo | Oficina Mecânica Especializada em Curitiba</title>
+  <meta name="description" content="Oficina mecânica especializada em Curitiba. Mais de 20 anos de experiência em câmbio automático, suspensão, freios, radiadores, embreagem e injeção eletrônica." />
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="motorlaff.com.br/assets/a3c7e7e2c31d98e3_ico.png" />
+  
+  <link href="https://fonts.googleapis.com" rel="preconnect"/>
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  
+  <!-- Scripts do Design System v2 -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+  
+  <!-- FontAwesome para Ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    /* ============================================================
+       MOTORLAFF DESIGN SYSTEM v2 — WHITE THEME
+       ============================================================ */
+
+    :root {
+      --c-bg:        #F7F5F2;
+      --c-surface:   #FFFFFF;
+      --c-surface-2: #EFEDE9;
+      --c-border:    #E2DFDA;
+      --c-border-md: #C8C4BE;
+      --c-text:      #0D0D0D;
+      --c-text-2:    #3D3A36;
+      --c-text-3:    #8C8884;
+      --c-text-4:    #B8B4AE;
+      --c-forge:     #E8510A;
+      --c-flame:     #FF6B35;
+      --c-ember:     #B8401C;
+      --c-engine:    #0D0D0D;
+      --c-steel:     #1C1C1C;
+      --c-carbon:    #2A2A2A;
+      --c-ash:       #8C8884;
+      --c-silver:    #C8C4BE;
+      --c-concrete:  #F7F5F2;
+      --font-display:'Oswald', sans-serif;
+      --font-body:   'Manrope', sans-serif;
+      --font-mono:   'Space Mono', monospace;
+      --space-xs:4px; --space-sm:8px; --space-md:16px;
+      --space-lg:32px; --space-xl:64px; --space-2xl:128px;
+      --radius-sm:8px; --radius-md:16px; --radius-lg:24px;
+      --radius-xl:40px; --radius-full:9999px;
+      --shadow-sm:  0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md:  0 4px 16px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+      --shadow-lg:  0 12px 40px rgba(0,0,0,0.10), 0 4px 8px rgba(0,0,0,0.04);
+      --shadow-xl:  0 24px 64px rgba(0,0,0,0.12), 0 8px 16px rgba(0,0,0,0.04);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: auto; }
+
+    /* Lenis Smooth Scroll Integration */
+    html.lenis, html.lenis body {
+      height: auto;
+    }
+    .lenis.lenis-smooth {
+      scroll-behavior: auto !important;
+    }
+    .lenis.lenis-smooth [data-lenis-prevent] {
+      overscroll-behavior: contain;
+    }
+    .lenis.lenis-stopped {
+      overflow: hidden;
+    }
+    .lenis.lenis-scrolling iframe {
+      pointer-events: none;
+    }
+
+    body {
+      background-color: var(--c-bg);
+      color: var(--c-text);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      opacity: 0;
+    }
+
+    .display { font-family: var(--font-display); }
+    .mono    { font-family: var(--font-mono); }
+
+    .noise-overlay {
+      position: fixed; inset: 0;
+      pointer-events: none; z-index: 9000; opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .loader {
+      position: fixed; inset: 0;
+      background: var(--c-engine);
+      z-index: 10000;
+      display: flex; flex-direction: column;
+      justify-content: center; align-items: center;
+    }
+    .loader-text {
+      font-family: var(--font-display);
+      font-size: 4vw; font-weight: 700; letter-spacing: 0.3em;
+      text-transform: uppercase; color: #fff;
+    }
+    .loader-sub {
+      font-family: var(--font-mono);
+      font-size: 11px; letter-spacing: 0.4em; color: var(--c-ash);
+      text-transform: uppercase; margin-top: 8px;
+    }
+    .loader-bar {
+      position: absolute; bottom: 0; left: 0;
+      height: 3px; background: var(--c-forge); width: 0%;
+      box-shadow: 0 0 20px var(--c-forge);
+    }
+
+    .wrapper {
+      position: relative; z-index: 10;
+      background-color: var(--c-bg);
+      box-shadow: 0 50px 100px rgba(0,0,0,0.12);
+    }
+
+
+
+    .divider { border-bottom: 1px solid var(--c-border); }
+
+    .word-wrap {
+      display: inline-block; overflow: hidden;
+      vertical-align: top; padding-bottom: 0.08em;
+    }
+    .word-inner { display: inline-block; transform: translateY(110%); }
+
+    @keyframes animationIn {
+      0%   { opacity: 0; transform: translateY(28px); filter: blur(8px); }
+      100% { opacity: 1; transform: translateY(0);    filter: blur(0px); }
+    }
+    .animate-on-scroll { animation-play-state: paused !important; }
+    .animate-on-scroll.animate { animation-play-state: running !important; }
+
+    @keyframes marquee {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-marquee { animation: marquee 28s linear infinite; }
+
+    @keyframes beam {
+      0%   { left: -120%; }
+      100% { left: 120%; }
+    }
+    .animate-beam { animation: beam 2.2s cubic-bezier(0.4,0,0.2,1) infinite; }
+
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+    .animate-pulse-dot { animation: pulse 2s ease-in-out infinite; }
+
+    .bg-grid-pattern {
+      background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,0.07) 1px, transparent 0);
+      background-size: 24px 24px;
+    }
+
+    .card-white {
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      box-shadow: var(--shadow-md);
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+    .card-white:hover {
+      box-shadow: var(--shadow-xl);
+      transform: translateY(-2px);
+    }
+
+    .img-wrap { overflow: hidden; }
+    .img-wrap .card-img { transition: transform 1.5s ease; }
+    .img-wrap:hover .card-img { transform: scale(1.08); }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--c-surface-2); }
+    ::-webkit-scrollbar-thumb { background: var(--c-border-md); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--c-forge); }
+
+    /* Custom WhatsApp floating widget */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .whatsapp-tooltip {
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      box-shadow: var(--shadow-md);
+      padding: 10px 16px;
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      color: var(--c-text-2);
+      font-weight: 500;
+      opacity: 0;
+      transform: translateX(10px);
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .whatsapp-float:hover .whatsapp-tooltip {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .whatsapp-btn {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #25d366;
+      box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+    .whatsapp-float:hover .whatsapp-btn {
+      transform: scale(1.08) rotate(8deg);
+      background: #20ba5a;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Textura Premium de Ruído Oculta/Overlay -->
+  <div class="noise-overlay"></div>
+
+  <!-- Loader de Entrada Realista -->
+  <div class="loader" id="loader">
+    <div class="loader-text">MOTORLAFF</div>
+    <div class="loader-sub">Espaço Automotivo de Alta Performance</div>
+    <div class="loader-bar" id="loaderBar"></div>
+  </div>
+
+  <!-- Barra de Navegação Flutuante em Pílula (Design System v2 White) -->
+  <nav class="fixed top-0 left-0 w-full px-4 md:px-10 py-5 flex justify-center z-50">
+    <div class="bg-[rgba(255,255,255,0.88)] backdrop-blur-[20px] -webkit-backdrop-blur-[20px] border border-[var(--c-border)] rounded-full px-4 md:px-6 py-2.5 flex items-center justify-between gap-6 md:gap-12 shadow-[var(--shadow-sm)] w-full max-w-4xl">
+      <a href="#" class="flex items-center">
+        <img src="motorlaff.com.br/assets/ba1ac99c27c415f1_cropped-cropped-logo.png" alt="Motorlaff Logo" class="h-8 w-auto object-contain" />
+      </a>
+      
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#sobrenos" class="font-['Manrope'] font-medium text-[0.82rem] text-[var(--c-text-3)] transition-colors duration-200 hover:text-[var(--c-text)] white-space-nowrap">Sobre nós</a>
+        <a href="#servicos" class="font-['Manrope'] font-medium text-[0.82rem] text-[var(--c-text-3)] transition-colors duration-200 hover:text-[var(--c-text)] white-space-nowrap">Serviços</a>
+        <a href="#diferenciais" class="font-['Manrope'] font-medium text-[0.82rem] text-[var(--c-text-3)] transition-colors duration-200 hover:text-[var(--c-text)] white-space-nowrap">Diferenciais</a>
+        <a href="#clientes" class="font-['Manrope'] font-medium text-[0.82rem] text-[var(--c-text-3)] transition-colors duration-200 hover:text-[var(--c-text)] white-space-nowrap">Clientes</a>
+        <a href="#localizacao" class="font-['Manrope'] font-medium text-[0.82rem] text-[var(--c-text-3)] transition-colors duration-200 hover:text-[var(--c-text)] white-space-nowrap">Contato</a>
+      </div>
+
+      <a href="https://wa.me/554130103333?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento!" target="_blank" class="bg-[var(--c-engine)] text-white font-['Oswald'] text-[0.75rem] font-medium tracking-[0.12em] uppercase px-5 py-2.5 rounded-full border-none cursor-pointer transition-colors duration-200 hover:bg-[var(--c-forge)] flex items-center gap-2 white-space-nowrap">
+        <i class="fa-brands fa-whatsapp"></i> Fale Conosco
+      </a>
+    </div>
+  </nav>
+
+  <!-- Wrapper Principal -->
+  <div class="wrapper">
+
+    <!-- DOBRA 02: HERO SECTION -->
+    <section class="min-h-screen relative flex items-center justify-center overflow-hidden bg-[var(--c-surface)] pt-24 md:pt-0">
+      
+      <!-- Vídeo de Background Premium (Puro, Sem Filtros de Iluminação) -->
+      <div class="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
+        <video class="w-full h-full object-cover opacity-100" autoplay loop muted playsinline>
+          <source src="motorlaff.com.br/assets/Carro%20entrando.webm" type="video/webm">
+        </video>
+        <!-- Gradiente suave inferior apenas para mesclar verticalmente com o fundo da página -->
+        <div class="absolute inset-0 bg-gradient-to-t from-[var(--c-bg)] via-transparent to-transparent opacity-85"></div>
+      </div>
+
+      <!-- Grid pattern original posicionado sobre o vídeo para textura estruturada premium -->
+      <div class="bg-grid-pattern absolute inset-0 opacity-80 pointer-events-none"></div>
+
+      <!-- Brilho Laranja Sutil em Backlight -->
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] md:w-[700px] h-[300px] md:h-[700px] bg-[radial-gradient(circle,rgba(232,81,10,0.04),transparent_70%)] pointer-events-none"></div>
+      <div class="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-transparent via-[var(--c-forge)] to-transparent opacity-60"></div>
+
+      <div class="relative z-10 max-w-[1600px] mx-auto w-full px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start pt-24 lg:pt-0">
+        
+        <!-- Coluna Esquerda: Mensagem e CTAs envolvidos em um Card Premium (ds2.html) -->
+        <div class="lg:col-span-7 text-left animate-on-scroll" style="animation: animationIn .8s ease-out 0s both;">
+          <div class="card-white rounded-[var(--radius-lg)] p-8 md:p-10 shadow-[var(--shadow-xl)] relative overflow-hidden bg-[rgba(255,255,255,0.88)] backdrop-blur-[20px] -webkit-backdrop-blur-[20px]">
+            <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[var(--c-forge)] to-[var(--c-flame)]"></div>
+            
+            <h1 class="font-['Oswald'] text-[3.2rem] md:text-[4.5rem] lg:text-[4.8rem] font-bold uppercase leading-[0.95] tracking-[-0.02em] text-[var(--c-text)]">
+              MOTOR<span class="text-[var(--c-forge)]">LAFF</span>
+            </h1>
+
+            <p class="font-['Manrope'] text-[1rem] md:text-[1.125rem] text-[var(--c-text-2)] font-light mt-6 leading-[1.6]">
+              Oficina mecânica de alta performance. Cuidado técnico impecável e total transparência para zelar pelo seu patrimônio.
+            </p>
+
+            <div class="flex flex-wrap gap-4 mt-8">
+              <a href="https://wa.me/554130103333?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento!" target="_blank" class="relative overflow-hidden bg-[var(--c-forge)] text-white font-['Oswald'] font-semibold text-[0.8rem] tracking-[0.15em] uppercase px-7 py-3.5 rounded-full border-none cursor-pointer shadow-[0_8px_32px_rgba(232,81,10,0.25)] transition-all duration-300 hover:bg-[var(--c-flame)] hover:-translate-y-0.5 hover:shadow-[0_12px_40px_rgba(232,81,10,0.35)] flex items-center gap-2">
+                <span class="absolute top-0 bottom-0 w-3/5 bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.25)] to-transparent pointer-events-none animate-beam"></span>
+                Solicitar Orçamento <i class="fa-solid fa-arrow-right text-[10px]"></i>
+              </a>
+              
+              <a href="#servicos" class="bg-transparent text-[var(--c-text)] border border-[var(--c-border-md)] font-['Oswald'] font-medium text-[0.8rem] tracking-[0.15em] uppercase px-7 py-[13px] rounded-full cursor-pointer transition-all duration-300 hover:border-[var(--c-forge)] hover:text-[var(--c-forge)] flex items-center gap-2">
+                Ver Serviços
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Coluna Direita: Rótulo / Painel de Especialidades -->
+        <div class="lg:col-span-5 animate-on-scroll" style="animation: animationIn .8s ease-out .55s both;">
+          <div class="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-[var(--radius-lg)] p-6 md:p-8 shadow-[var(--shadow-lg)] relative overflow-hidden">
+            <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[var(--c-forge)] to-[var(--c-flame)]"></div>
+            
+            <h3 class="font-['Oswald'] text-xl font-medium tracking-[0.05em] uppercase mb-6">Especializados em:</h3>
+            
+            <ul class="space-y-4">
+              <!-- Câmbio -->
+              <li class="flex items-start gap-3 group">
+                <span class="text-[var(--c-forge)] mt-0.5 transition-transform duration-300 group-hover:translate-x-1"><i class="fa-solid fa-chevron-right text-xs"></i></span>
+                <div>
+                  <h4 class="font-['Manrope'] font-bold text-[0.95rem] text-[var(--c-text)]">Câmbio Automático e Manual</h4>
+                  <p class="font-['Manrope'] text-[0.8rem] text-[var(--c-text-3)]">Manutenção técnica rigorosa com maquinário de diagnóstico.</p>
+                </div>
+              </li>
+              <!-- Suspensão -->
+              <li class="flex items-start gap-3 group">
+                <span class="text-[var(--c-forge)] mt-0.5 transition-transform duration-300 group-hover:translate-x-1"><i class="fa-solid fa-chevron-right text-xs"></i></span>
+                <div>
+                  <h4 class="font-['Manrope'] font-bold text-[0.95rem] text-[var(--c-text)]">Suspensão e Direção</h4>
+                  <p class="font-['Manrope'] text-[0.8rem] text-[var(--c-text-3)]">Segurança e controle nas curvas com calibração precisa.</p>
+                </div>
+              </li>
+              <!-- Freios -->
+              <li class="flex items-start gap-3 group">
+                <span class="text-[var(--c-forge)] mt-0.5 transition-transform duration-300 group-hover:translate-x-1"><i class="fa-solid fa-chevron-right text-xs"></i></span>
+                <div>
+                  <h4 class="font-['Manrope'] font-bold text-[0.95rem] text-[var(--c-text)]">Freios de Alta Precisão</h4>
+                  <p class="font-['Manrope'] text-[0.8rem] text-[var(--c-text-3)]">Substituição de pastilhas, discos e sangria do sistema hidráulico.</p>
+                </div>
+              </li>
+              <!-- Radiadores -->
+              <li class="flex items-start gap-3 group">
+                <span class="text-[var(--c-forge)] mt-0.5 transition-transform duration-300 group-hover:translate-x-1"><i class="fa-solid fa-chevron-right text-xs"></i></span>
+                <div>
+                  <h4 class="font-['Manrope'] font-bold text-[0.95rem] text-[var(--c-text)]">Radiadores e Arrefecimento</h4>
+                  <p class="font-['Manrope'] text-[0.8rem] text-[var(--c-text-3)]">Proteção essencial contra o superaquecimento do seu motor.</p>
+                </div>
+              </li>
+              <!-- Outros itens combinados de forma compacta e premium -->
+              <li class="flex items-start gap-3 pt-3 border-t border-[var(--c-border)] group">
+                <span class="text-emerald-600 mt-0.5"><i class="fa-solid fa-circle-check text-xs"></i></span>
+                <span class="font-['Manrope'] font-medium text-[0.9rem] text-[var(--c-text-2)]">Embreagens, Injeção Eletrônica, Troca de Óleo e Filtros</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-35 pointer-events-none hidden md:flex">
+        <span class="font-['Space_Mono'] text-[9px] tracking-[0.3em] uppercase text-[var(--c-text-3)]">Rolar</span>
+        <div class="w-[1px] h-10 bg-gradient-to-b from-[var(--c-border-md)] to-transparent"></div>
+      </div>
+    </section>
+
+    <!-- DOBRA 03 & 04: NOSSOS SERVIÇOS -->
+    <section id="servicos" class="py-24 px-6 md:px-12 max-w-[1600px] mx-auto divider">
+
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-16">
+        <div>
+          <span class="font-['Space_Mono'] text-xs text-[var(--c-forge)] tracking-[0.2em] uppercase font-bold">Diagnóstico &amp; Reparo</span>
+          <h2 class="font-['Oswald'] text-3xl md:text-5xl font-bold uppercase tracking-[0.01em] mt-2">
+            Soluções completas com garantia
+          </h2>
+        </div>
+        <p class="font-['Manrope'] text-[var(--c-text-3)] max-w-[420px] leading-[1.6]">
+          Equipamentos computadorizados de última geração e técnicos altamente capacitados para identificar qualquer falha no seu veículo.
+        </p>
+      </div>
+
+      <!-- Grid de Cards de Serviços -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Card 1: Câmbio Automático -->
+        <div class="card-white rounded-[var(--radius-lg)] overflow-hidden flex flex-col justify-between min-h-[480px]">
+          <div class="img-wrap h-56 w-full relative">
+            <img src="motorlaff.com.br/assets/40778f490a68d630_elevated-view-businessman-driv.jpg" alt="Câmbio Automático" class="card-img w-full h-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+            <span class="absolute bottom-4 left-6 font-['Space_Mono'] text-[10px] text-white tracking-[0.2em] uppercase bg-black/60 backdrop-blur-md px-3 py-1 rounded">CATEGORIA: TRANSMISSÃO</span>
+          </div>
+          <div class="p-8 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="font-['Oswald'] text-2xl font-bold text-[var(--c-text)] uppercase tracking-[0.04em] mb-3">Câmbio Automático</h3>
+              <p class="font-['Manrope'] text-[0.9rem] text-[var(--c-text-2)] leading-[1.7]">
+                Somos especializados em manutenção preventiva, troca de fluido por diálise e reparos de câmbio automático em Curitiba e Região.
+              </p>
+            </div>
+            <div class="flex items-center justify-between border-t border-[var(--c-border)] pt-5 mt-6">
+              <a href="https://wa.me/554130103333?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento%20para%20C%C3%A2mbio%20Autom%C3%A1tico!" target="_blank" class="bg-[var(--c-forge)] text-white font-['Oswald'] text-[0.75rem] font-semibold tracking-[0.1em] uppercase px-5 py-3 rounded-full hover:bg-[var(--c-flame)] transition-colors duration-200">
+                Orçamento Rápido
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Injeção Eletrônica -->
+        <div class="card-white rounded-[var(--radius-lg)] overflow-hidden flex flex-col justify-between min-h-[480px]">
+          <div class="img-wrap h-56 w-full relative">
+            <img src="motorlaff.com.br/assets/6506cadbbee6b9d9_img-injecao-eletronica-768x403.jpg" alt="Injeção Eletrônica" class="card-img w-full h-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+            <span class="absolute bottom-4 left-6 font-['Space_Mono'] text-[10px] text-white tracking-[0.2em] uppercase bg-black/60 backdrop-blur-md px-3 py-1 rounded">CATEGORIA: ELETRÔNICA</span>
+          </div>
+          <div class="p-8 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="font-['Oswald'] text-2xl font-bold text-[var(--c-text)] uppercase tracking-[0.04em] mb-3">Injeção Eletrônica</h3>
+              <p class="font-['Manrope'] text-[0.9rem] text-[var(--c-text-2)] leading-[1.7]">
+                Diagnóstico preciso computadorizado para problemas de injeção eletrônica, leitura de falhas em tempo real e redefinição de parâmetros.
+              </p>
+            </div>
+            <div class="flex items-center justify-between border-t border-[var(--c-border)] pt-5 mt-6">
+              <a href="https://wa.me/554130103333?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento%20para%20Inje%C3%A7%C3%A3o%20Eletr%C3%B4nica!" target="_blank" class="bg-[var(--c-forge)] text-white font-['Oswald'] text-[0.75rem] font-semibold tracking-[0.1em] uppercase px-5 py-3 rounded-full hover:bg-[var(--c-flame)] transition-colors duration-200">
+                Orçamento Rápido
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: Troca de Óleo -->
+        <div class="card-white rounded-[var(--radius-lg)] overflow-hidden flex flex-col justify-between min-h-[480px]">
+          <div class="img-wrap h-56 w-full relative">
+            <img src="motorlaff.com.br/assets/b8d00e59a1ee7990_post_thumbnail-2f5744ef61f83c2.jpeg" alt="Troca de Óleo" class="card-img w-full h-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+            <span class="absolute bottom-4 left-6 font-['Space_Mono'] text-[10px] text-white tracking-[0.2em] uppercase bg-black/60 backdrop-blur-md px-3 py-1 rounded">CATEGORIA: PREVENTIVA</span>
+          </div>
+          <div class="p-8 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="font-['Oswald'] text-2xl font-bold text-[var(--c-text)] uppercase tracking-[0.04em] mb-3">Troca de Óleo</h3>
+              <p class="font-['Manrope'] text-[0.9rem] text-[var(--c-text-2)] leading-[1.7]">
+                Substituição de óleo e filtros recomendados pelo fabricante do seu veículo, com profissionais capacitados e as melhores marcas do mercado.
+              </p>
+            </div>
+            <div class="flex items-center justify-between border-t border-[var(--c-border)] pt-5 mt-6">
+              <a href="https://wa.me/554130103333?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento%20para%20Troca%20de%20%C3%93leo!" target="_blank" class="bg-[var(--c-forge)] text-white font-['Oswald'] text-[0.75rem] font-semibold tracking-[0.1em] uppercase px-5 py-3 rounded-full hover:bg-[var(--c-flame)] transition-colors duration-200">
+                Orçamento Rápido
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4: Suspensão -->
+        <div class="card-white rounded-[var(--radius-lg)] overflow-hidden flex flex-col justify-between min-h-[480px]">
+          <div class="img-wrap h-56 w-full relative">
+            <img src="motorlaff.com.br/assets/c26b5a3a7018fea2_Sistem_De_Suspensao-riwyiyokhg.jpg" alt="Suspensão" class="card-img w-full h-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+            <span class="absolute bottom-4 left-6 font-['Space_Mono'] text-[10px] text-white tracking-[0.2em] uppercase bg-black/60 backdrop-blur-md px-3 py-1 rounded">CATEGORIA: SEGURANÇA</span>
+          </div>
+          <div class="p-8 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="font-['Oswald'] text-2xl font-bold text-[var(--c-text)] uppercase tracking-[0.04em] mb-3">Suspensão</h3>
+              <p class="font-['Manrope'] text-[0.9rem] text-[var(--c-text-2)] leading-[1.7]">
+                Reparos completos, substituição de amortecedores, molas, buchas, pivôs e calibração de geometria e balanceamento para o seu carro.
+              </p>
+            </div>
+            <div class="flex items-center justify-between border-t border-[var(--c-border)] pt-5 mt-6">
+              <a href="https://wa.me/554130103333?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento%20para%20Suspens%C3%A3o!" target="_blank" class="bg-[var(--c-forge)] text-white font-['Oswald'] text-[0.75rem] font-semibold tracking-[0.1em] uppercase px-5 py-3 rounded-full hover:bg-[var(--c-flame)] transition-colors duration-200">
+                Orçamento Rápido
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5: Radiadores -->
+        <div class="card-white rounded-[var(--radius-lg)] overflow-hidden flex flex-col justify-between min-h-[480px]">
+          <div class="img-wrap h-56 w-full relative">
+            <img src="motorlaff.com.br/assets/b00115d759a6baac_radiador-carro-rix1qpj420pu85k.jpg" alt="Radiadores" class="card-img w-full h-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+            <span class="absolute bottom-4 left-6 font-['Space_Mono'] text-[10px] text-white tracking-[0.2em] uppercase bg-black/60 backdrop-blur-md px-3 py-1 rounded">CATEGORIA: ARREFECIMENTO</span>
+          </div>
+          <div class="p-8 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="font-['Oswald'] text-2xl font-bold text-[var(--c-text)] uppercase tracking-[0.04em] mb-3">Radiadores</h3>
+              <p class="font-['Manrope'] text-[0.9rem] text-[var(--c-text-2)] leading-[1.7]">
+                Problemas de superaquecimento com o seu veículo? Nós identificamos vazamentos e realizamos a manutenção ou troca do sistema com agilidade.
+              </p>
+            </div>
+            <div class="flex items-center justify-between border-t border-[var(--c-border)] pt-5 mt-6">
+              <a href="https://wa.me/554130103333?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento%20para%20Radiadores!" target="_blank" class="bg-[var(--c-forge)] text-white font-['Oswald'] text-[0.75rem] font-semibold tracking-[0.1em] uppercase px-5 py-3 rounded-full hover:bg-[var(--c-flame)] transition-colors duration-200">
+                Orçamento Rápido
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 6: Freios -->
+        <div class="card-white rounded-[var(--radius-lg)] overflow-hidden flex flex-col justify-between min-h-[480px]">
+          <div class="img-wrap h-56 w-full relative">
+            <img src="motorlaff.com.br/assets/4296c2d406b74cce_2022-11-11-trocar-as-pastilhas.webp" alt="Freios" class="card-img w-full h-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+            <span class="absolute bottom-4 left-6 font-['Space_Mono'] text-[10px] text-white tracking-[0.2em] uppercase bg-black/60 backdrop-blur-md px-3 py-1 rounded">CATEGORIA: FREIOS</span>
+          </div>
+          <div class="p-8 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="font-['Oswald'] text-2xl font-bold text-[var(--c-text)] uppercase tracking-[0.04em] mb-3">Freios</h3>
+              <p class="font-['Manrope'] text-[0.9rem] text-[var(--c-text-2)] leading-[1.7]">
+                Mantenha a frenagem em perfeito estado de funcionamento. Revisão preventiva, substituição técnica de pastilhas, discos e óleo hidráulico de freio.
+              </p>
+            </div>
+            <div class="flex items-center justify-between border-t border-[var(--c-border)] pt-5 mt-6">
+              <a href="https://wa.me/554130103333?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento%20para%20Freios!" target="_blank" class="bg-[var(--c-forge)] text-white font-['Oswald'] text-[0.75rem] font-semibold tracking-[0.1em] uppercase px-5 py-3 rounded-full hover:bg-[var(--c-flame)] transition-colors duration-200">
+                Orçamento Rápido
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- DOBRA 05: SOBRE NÓS -->
+    <section id="sobrenos" class="py-24 px-6 md:px-12 max-w-[1600px] mx-auto divider">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- Coluna Esquerda: Texto -->
+        <div class="lg:col-span-6 space-y-6 animate-on-scroll" style="animation: animationIn .8s ease-out 0s both;">
+          <span class="font-['Space_Mono'] text-[11px] text-[var(--c-forge)] tracking-[0.25em] uppercase font-bold">Oficina Premium em Curitiba</span>
+          <h2 class="font-['Oswald'] text-3xl md:text-5xl font-bold uppercase tracking-[0.01em]">
+            + de 20 anos de experiência!
+          </h2>
+          
+          <p class="font-['Manrope'] text-lg text-[var(--c-text-2)] font-light leading-[1.8] text-justify">
+            Um espaço automotivo completo para você. Não é apenas um "cuidar do carro", é zelar pelo seu patrimônio da melhor maneira possível.
+          </p>
+
+          <p class="font-['Manrope'] text-sm text-[var(--c-text-3)] leading-[1.8] text-justify">
+            Contamos com uma completa linha de serviços à sua disposição. Geometria, balanceamento, freios, embreagem, suspensão, troca de óleo, além de um lava-car completo, que cuida desde a lavagem até o polimento meticuloso. Venha conhecer nossa empresa ou solicite um orçamento de forma transparente.
+          </p>
+
+          <div class="pt-4">
+            <a href="https://wa.me/554130103333?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento%20para%20o%20meu%20carro!" target="_blank" class="relative inline-flex overflow-hidden bg-[var(--c-forge)] text-white font-['Oswald'] font-semibold text-[0.85rem] tracking-[0.12em] uppercase px-8 py-4 rounded-full shadow-[0_8px_24px_rgba(232,81,10,0.15)] transition-all duration-300 hover:bg-[var(--c-flame)] hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(232,81,10,0.25)] flex items-center gap-2">
+              <span class="absolute top-0 bottom-0 w-3/5 bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.25)] to-transparent pointer-events-none animate-beam"></span>
+              Solicite um orçamento
+            </a>
+          </div>
+        </div>
+
+        <!-- Coluna Direita: Imagem Espaço -->
+        <div class="lg:col-span-6 animate-on-scroll" style="animation: animationIn .8s ease-out .25s both;">
+          <div class="img-wrap rounded-[var(--radius-lg)] border border-[var(--c-border)] shadow-[var(--shadow-xl)] aspect-[4/3] relative">
+            <img src="motorlaff.com.br/assets/3a2400421e23c048_WhatsApp-Image-2023-04-12-at-1.jpeg" alt="Espaço Automotivo Motorlaff" class="card-img w-full h-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+            
+            <div class="absolute bottom-6 left-6 right-6 flex items-center justify-between text-white">
+              <div>
+                <h4 class="font-['Oswald'] text-xl font-medium tracking-[0.05em] uppercase">Estrutura Completa</h4>
+                <p class="font-['Space_Mono'] text-[10px] text-gray-300 tracking-[0.1em] mt-1">CURITIBA - PR (JUVEVÊ)</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DOBRA 06: BANNER / IMAGEM FULL-WIDTH -->
+    <section class="h-[50vh] relative flex items-center justify-center overflow-hidden bg-[var(--c-engine)]">
+      <img src="motorlaff.com.br/assets/b1a5de5dcbb25fa9_Oficina-mecanica-matorlaff-e17.jpeg" alt="Oficina Motorlaff" class="absolute inset-0 w-full h-full object-cover opacity-35" />
+      <div class="absolute inset-0 bg-[radial-gradient(circle,rgba(232,81,10,0.1),transparent_80%)]"></div>
+
+      <div class="relative z-10 text-center px-6 max-w-3xl">
+        <span class="font-['Space_Mono'] text-[10px] text-[var(--c-forge)] tracking-[0.4em] uppercase font-bold block mb-4">TECNOLOGIA &amp; PRECISÃO</span>
+        <h2 class="font-['Oswald'] text-2xl md:text-4xl lg:text-5xl font-bold text-white uppercase tracking-[0.04em] leading-[1.2]">
+          A cada diagnóstico, a certeza de rodar em segurança.
+        </h2>
+        <div class="w-16 h-1 bg-[var(--c-forge)] mx-auto mt-6"></div>
+      </div>
+    </section>
+
+    <!-- DOBRA 07 & 08: DEPOIMENTOS DE CLIENTES -->
+    <section id="clientes" class="py-24 px-6 md:px-12 max-w-[1600px] mx-auto divider">
+
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-16">
+        <div>
+          <span class="font-['Space_Mono'] text-xs text-[var(--c-forge)] tracking-[0.2em] uppercase font-bold">Opiniões Reais</span>
+          <h2 class="font-['Oswald'] text-3xl md:text-5xl font-bold uppercase tracking-[0.01em] mt-2">
+            Depoimentos reais de nossos clientes!
+          </h2>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="flex text-[var(--c-forge)] text-xl"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>
+          <span class="font-['Space_Mono'] text-sm text-[var(--c-text-2)] font-bold">4,7 de 5 Google</span>
+        </div>
+      </div>
+
+      <!-- Testimonials grid (4 colunas) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Depoimento 1 -->
+        <div class="card-white rounded-[var(--radius-lg)] p-8 flex flex-col justify-between min-h-[300px]">
+          <div>
+            <div class="flex text-[var(--c-forge)] text-sm gap-0.5 mb-6"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            <p class="font-['Manrope'] text-[0.88rem] text-[var(--c-text-2)] italic leading-[1.7] mb-6">
+              "Os atendentes são muito queridos, o proprietário é super atencioso, fiz uma pequena revisão no meu veículo e ele me explicou tudo certinho. Voltarei e indicarei para todos."
+            </p>
+          </div>
+          <div class="flex items-center gap-3 border-t border-[var(--c-border)] pt-4 mt-auto">
+            <div class="w-10 h-10 rounded-full bg-[var(--c-surface-2)] flex items-center justify-center font-['Oswald'] text-md font-bold text-[var(--c-forge)]">ID</div>
+            <div>
+              <p class="font-['Manrope'] font-bold text-xs text-[var(--c-text)]">Isabelle Dubik</p>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Depoimento 2 -->
+        <div class="card-white rounded-[var(--radius-lg)] p-8 flex flex-col justify-between min-h-[300px]">
+          <div>
+            <div class="flex text-[var(--c-forge)] text-sm gap-0.5 mb-6"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            <p class="font-['Manrope'] text-[0.88rem] text-[var(--c-text-2)] italic leading-[1.7] mb-6">
+              "Ótima oficina com estruturas de alta qualidade e bons profissionais. Recomendo ao pessoal fazer a revisão do seu carro."
+            </p>
+          </div>
+          <div class="flex items-center gap-3 border-t border-[var(--c-border)] pt-4 mt-auto">
+            <div class="w-10 h-10 rounded-full bg-[var(--c-surface-2)] flex items-center justify-center font-['Oswald'] text-md font-bold text-[var(--c-forge)]">JS</div>
+            <div>
+              <p class="font-['Manrope'] font-bold text-xs text-[var(--c-text)]">Jefferson Sagath</p>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Depoimento 3 -->
+        <div class="card-white rounded-[var(--radius-lg)] p-8 flex flex-col justify-between min-h-[300px]">
+          <div>
+            <div class="flex text-[var(--c-forge)] text-sm gap-0.5 mb-6"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            <p class="font-['Manrope'] text-[0.88rem] text-[var(--c-text-2)] italic leading-[1.7] mb-6">
+              "Excelente atendimento e serviço. Valor justo e muita transparência do que foi feito e como foi feito."
+            </p>
+          </div>
+          <div class="flex items-center gap-3 border-t border-[var(--c-border)] pt-4 mt-auto">
+            <div class="w-10 h-10 rounded-full bg-[var(--c-surface-2)] flex items-center justify-center font-['Oswald'] text-md font-bold text-[var(--c-forge)]">AF</div>
+            <div>
+              <p class="font-['Manrope'] font-bold text-xs text-[var(--c-text)]">Alan Falkoski</p>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Depoimento 4 -->
+        <div class="card-white rounded-[var(--radius-lg)] p-8 flex flex-col justify-between min-h-[300px]">
+          <div>
+            <div class="flex text-[var(--c-forge)] text-sm gap-0.5 mb-6"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            <p class="font-['Manrope'] text-[0.88rem] text-[var(--c-text-2)] italic leading-[1.7] mb-6">
+              "Já foram vários serviços realizados lá e até hoje sem nenhuma reclamação. Sempre atendido com muita transparência e atenção. Preço justo e bom resultado."
+            </p>
+          </div>
+          <div class="flex items-center gap-3 border-t border-[var(--c-border)] pt-4 mt-auto">
+            <div class="w-10 h-10 rounded-full bg-[var(--c-surface-2)] flex items-center justify-center font-['Oswald'] text-md font-bold text-[var(--c-forge)]">SN</div>
+            <div>
+              <p class="font-['Manrope'] font-bold text-xs text-[var(--c-text)]">Silvio C. Neto</p>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- DOBRA 09: NOSSOS DIFERENCIAIS -->
+    <section id="diferenciais" class="py-24 px-6 md:px-12 max-w-[1600px] mx-auto divider bg-[var(--c-surface-2)] rounded-[var(--radius-lg)] my-16 shadow-[var(--shadow-md)]">
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-16">
+        <div>
+          <span class="font-['Space_Mono'] text-xs text-[var(--c-forge)] tracking-[0.2em] uppercase font-bold">Nossos diferenciais</span>
+          <h2 class="font-['Oswald'] text-3xl md:text-5xl font-bold uppercase tracking-[0.01em] mt-2">
+            Padrão Técnico de Excelência
+          </h2>
+        </div>
+      </div>
+
+      <!-- Diferenciais Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Diferencial 1: Preços Justos -->
+        <div class="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-[var(--radius-md)] p-8 shadow-[var(--shadow-sm)] space-y-4">
+          <div class="w-12 h-12 bg-[rgba(232,81,10,0.08)] border border-[rgba(232,81,10,0.15)] rounded-[var(--radius-sm)] flex items-center justify-center text-[var(--c-forge)] text-xl">
+            <i class="fa-solid fa-money-bill"></i>
+          </div>
+          <h3 class="font-['Oswald'] text-xl font-bold uppercase tracking-[0.05em] text-[var(--c-text)]">Preços Justos</h3>
+          <p class="font-['Manrope'] text-sm text-[var(--c-text-3)] leading-[1.6]">
+            Oferecemos serviços de qualidade com valores acessíveis e orçamento transparente, sem cobranças inesperadas.
+          </p>
+        </div>
+
+        <!-- Diferencial 2: Diagnóstico Rápido -->
+        <div class="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-[var(--radius-md)] p-8 shadow-[var(--shadow-sm)] space-y-4">
+          <div class="w-12 h-12 bg-[rgba(232,81,10,0.08)] border border-[rgba(232,81,10,0.15)] rounded-[var(--radius-sm)] flex items-center justify-center text-[var(--c-forge)] text-xl">
+            <i class="fa-solid fa-car-battery"></i>
+          </div>
+          <h3 class="font-['Oswald'] text-xl font-bold uppercase tracking-[0.05em] text-[var(--c-text)]">Diagnóstico Rápido e Preciso</h3>
+          <p class="font-['Manrope'] text-sm text-[var(--c-text-3)] leading-[1.6]">
+            Equipamentos modernos e diagnose computadorizada que permitem identificar falhas elétricas ou mecânicas com rapidez e eficiência.
+          </p>
+        </div>
+
+        <!-- Diferencial 3: Trabalho de qualidade -->
+        <div class="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-[var(--radius-md)] p-8 shadow-[var(--shadow-sm)] space-y-4">
+          <div class="w-12 h-12 bg-[rgba(232,81,10,0.08)] border border-[rgba(232,81,10,0.15)] rounded-[var(--radius-sm)] flex items-center justify-center text-[var(--c-forge)] text-xl">
+            <i class="fa-solid fa-star"></i>
+          </div>
+          <h3 class="font-['Oswald'] text-xl font-bold uppercase tracking-[0.05em] text-[var(--c-text)]">Trabalho de qualidade</h3>
+          <p class="font-['Manrope'] text-sm text-[var(--c-text-3)] leading-[1.6]">
+            Realizamos serviços com excelência técnica, atenção absoluta aos detalhes mais finos e emprego de mão de obra especializada.
+          </p>
+        </div>
+
+        <!-- Diferencial 4: Comodidade -->
+        <div class="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-[var(--radius-md)] p-8 shadow-[var(--shadow-sm)] space-y-4">
+          <div class="w-12 h-12 bg-[rgba(232,81,10,0.08)] border border-[rgba(232,81,10,0.15)] rounded-[var(--radius-sm)] flex items-center justify-center text-[var(--c-forge)] text-xl">
+            <i class="fa-solid fa-hourglass-end"></i>
+          </div>
+          <h3 class="font-['Oswald'] text-xl font-bold uppercase tracking-[0.05em] text-[var(--c-text)]">Comodidade e Praticidade</h3>
+          <p class="font-['Manrope'] text-sm text-[var(--c-text-3)] leading-[1.6]">
+            Economia substancial de tempo e total tranquilidade diante de imprevistos ou problemas mecânicos inesperados no dia a dia.
+          </p>
+        </div>
+
+        <!-- Diferencial 5: Especializados -->
+        <div class="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-[var(--radius-md)] p-8 shadow-[var(--shadow-sm)] space-y-4">
+          <div class="w-12 h-12 bg-[rgba(232,81,10,0.08)] border border-[rgba(232,81,10,0.15)] rounded-[var(--radius-sm)] flex items-center justify-center text-[var(--c-forge)] text-xl">
+            <i class="fa-solid fa-users-cog"></i>
+          </div>
+          <!-- Correção sutil da ortografia original 'experiancia' conforme solicitação estética, mantendo o sentido original -->
+          <h3 class="font-['Oswald'] text-xl font-bold uppercase tracking-[0.05em] text-[var(--c-text)]">Profissionais Especializados</h3>
+          <p class="font-['Manrope'] text-sm text-[var(--c-text-3)] leading-[1.6]">
+            Mecânicos especializados, altamente treinados e constantemente reciclados que possuem experiência prática de anos.
+          </p>
+        </div>
+
+        <!-- Diferencial 6: Garantia -->
+        <div class="bg-[var(--c-surface)] border border-[var(--c-border)] rounded-[var(--radius-md)] p-8 shadow-[var(--shadow-sm)] space-y-4">
+          <div class="w-12 h-12 bg-[rgba(232,81,10,0.08)] border border-[rgba(232,81,10,0.15)] rounded-[var(--radius-sm)] flex items-center justify-center text-[var(--c-forge)] text-xl">
+            <i class="fa-solid fa-handshake"></i>
+          </div>
+          <h3 class="font-['Oswald'] text-xl font-bold uppercase tracking-[0.05em] text-[var(--c-text)]">Garantia de Serviço</h3>
+          <p class="font-['Manrope'] text-sm text-[var(--c-text-3)] leading-[1.6]">
+            Oferecemos garantia formal e sólida em todos os serviços realizados, trazendo absoluta segurança e tranquilidade ao cliente.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- AGENDAMENTO INTERATIVO / FORMULÁRIO DO DS2 -->
+    <section class="py-24 px-6 md:px-12 max-w-[1600px] mx-auto divider">
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 max-w-5xl mx-auto items-stretch">
+        
+        <!-- Formulário Lado Esquerdo -->
+        <form id="agendamentoForm" class="flex flex-col gap-6 justify-between">
+          <div>
+            <div class="mb-6 border-l-3 border-[var(--c-forge)] pl-4">
+              <h3 class="font-['Oswald'] text-2xl font-bold uppercase tracking-[0.05em]">Orçamento e Análise</h3>
+              <p class="font-['Space_Mono'] text-[10px] text-[var(--c-text-3)] mt-1">Preencha os detalhes e envie via WhatsApp</p>
+            </div>
+            
+            <div class="space-y-5">
+              <div>
+                <label class="font-['Space_Mono'] text-[10px] tracking-[0.25em] uppercase text-[var(--c-text-3)] block mb-2">Qual o seu veículo?</label>
+                <input type="text" id="veiculo" placeholder="Ex: Corolla, Civic, Golf..." required class="w-full bg-[var(--c-surface)] border border-[var(--c-border)] rounded-[var(--radius-sm)] px-4 py-3.5 font-['Manrope'] text-[0.95rem] text-[var(--c-text)] outline-none transition-all duration-200 shadow-[var(--shadow-sm)] focus:border-[var(--c-forge)] focus:ring-[3px] focus:ring-[rgba(232,81,10,0.1)]"/>
+              </div>
+              
+              <div>
+                <label class="font-['Space_Mono'] text-[10px] tracking-[0.25em] uppercase text-[var(--c-text-3)] block mb-2">Serviço Pretendido</label>
+                <select id="servico" class="w-full bg-[var(--c-surface)] border border-[var(--c-border)] rounded-[var(--radius-sm)] px-4 py-3.5 font-['Manrope'] text-[0.95rem] text-[var(--c-text)] outline-none cursor-pointer transition-colors duration-200 shadow-[var(--shadow-sm)] focus:border-[var(--c-forge)]">
+                  <option value="Revisão Completa">Revisão Geral Completa</option>
+                  <option value="Câmbio Automático/Manual">Câmbio Automático e Manual</option>
+                  <option value="Injeção Eletrônica">Diagnóstico de Injeção Eletrônica</option>
+                  <option value="Troca de Óleo e Filtros">Troca de Óleo e Filtros</option>
+                  <option value="Suspensão e Direção">Manutenção de Suspensão</option>
+                  <option value="Radiadores / Arrefecimento">Radiadores e Arrefecimento</option>
+                  <option value="Freios">Revisão e Reparo de Freios</option>
+                </select>
+              </div>
+              
+              <div>
+                <label class="font-['Space_Mono'] text-[10px] tracking-[0.25em] uppercase text-[var(--c-text-3)] block mb-2">Mensagem Adicional / Sintomas</label>
+                <textarea id="mensagem" rows="3" placeholder="Ex: Pedal oscilando, vazamento leve, revisão anual..." class="w-full bg-[var(--c-surface)] border border-[var(--c-border)] rounded-[var(--radius-sm)] px-4 py-3.5 font-['Manrope'] text-[0.95rem] text-[var(--c-text)] outline-none resize-y transition-all duration-200 shadow-[var(--shadow-sm)] focus:border-[var(--c-forge)] focus:ring-[3px] focus:ring-[rgba(232,81,10,0.1)]"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="w-full bg-[var(--c-engine)] text-white font-['Oswald'] font-bold text-[0.85rem] tracking-[0.15em] uppercase py-4 rounded-[var(--radius-sm)] border-none cursor-pointer transition-all duration-200 hover:bg-[var(--c-forge)] hover:shadow-[0_8px_24px_rgba(232,81,10,0.2)] mt-4 flex items-center justify-center gap-2">
+            <i class="fa-solid fa-calculator"></i> Simular Orçamento
+          </button>
+        </form>
+
+        <!-- Lado Direito: Agendamento Rápido -->
+        <div class="bg-[var(--c-surface)] border border-[var(--c-border)] shadow-[var(--shadow-lg)] p-8 rounded-[var(--radius-lg)] flex flex-col justify-between">
+          <div class="space-y-6">
+            <div class="border-l-3 border-[var(--c-forge)] pl-4">
+              <h3 class="font-['Oswald'] text-2xl font-bold uppercase tracking-[0.05em]">Agendamento Rápido</h3>
+              <p class="font-['Space_Mono'] text-[10px] text-emerald-600 font-bold mt-1">✦ RESPOSTA EM ATÉ 30 MINUTOS</p>
+            </div>
+
+            <div class="space-y-5">
+              <div>
+                <label class="font-['Space_Mono'] text-[10px] tracking-[0.25em] uppercase text-[var(--c-text-3)] block mb-2">Nome Completo</label>
+                <input type="text" id="nomeRapido" placeholder="Seu nome completo" required class="w-full bg-[var(--c-bg)] border border-[var(--c-border)] rounded-[var(--radius-sm)] px-4 py-3.5 font-['Manrope'] text-[0.9rem] text-[var(--c-text)] outline-none transition-colors duration-200 focus:border-[var(--c-forge)]"/>
+              </div>
+
+              <div>
+                <label class="font-['Space_Mono'] text-[10px] tracking-[0.25em] uppercase text-[var(--c-text-3)] block mb-2">Telefone com WhatsApp</label>
+                <input type="tel" id="telRapido" placeholder="(41) 99999-9999" required class="w-full bg-[var(--c-bg)] border border-[var(--c-border)] rounded-[var(--radius-sm)] px-4 py-3.5 font-['Space_Mono'] text-[0.9rem] text-[var(--c-text)] tracking-[0.1em] outline-none transition-colors duration-200 focus:border-[var(--c-forge)]"/>
+              </div>
+            </div>
+          </div>
+
+          <button id="agendarRapidoBtn" class="relative overflow-hidden w-full bg-[var(--c-forge)] text-white font-['Oswald'] font-bold text-[0.85rem] tracking-[0.15em] uppercase py-4 rounded-[var(--radius-sm)] border-none cursor-pointer mt-8 transition-all duration-300 hover:shadow-[0_8px_32px_rgba(232,81,10,0.3)]">
+            <span class="absolute top-0 bottom-0 w-2/5 bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.2)] to-transparent pointer-events-none animate-beam"></span>
+            Confirmar Reserva pelo Whats <i class="fa-brands fa-whatsapp text-sm ml-1"></i>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- MARQUEE INFINITO DE MARCAS PARCEIRAS -->
+    <section class="py-12 bg-[var(--c-surface)] overflow-hidden relative border-t border-b border-[var(--c-border)]">
+      <div class="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[var(--c-surface)] to-transparent z-10"></div>
+      <div class="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[var(--c-surface)] to-transparent z-10"></div>
+      <div class="animate-marquee flex w-[200%] items-center gap-[60px] white-space-nowrap">
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">TOYOTA</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">HONDA</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">VOLKSWAGEN</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">FORD</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">CHEVROLET</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">HYUNDAI</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">KIA</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">JEEP</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">BMW</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">AUDI</span>
+        <!-- Duplicação para loop contínuo -->
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">TOYOTA</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">HONDA</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">VOLKSWAGEN</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">FORD</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">CHEVROLET</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">HYUNDAI</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">KIA</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">JEEP</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">BMW</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">AUDI</span>
+      </div>
+    </section>
+
+    <!-- LOCALIZAÇÃO / GOOGLE MAPS -->
+    <section id="localizacao" class="py-24 px-6 md:px-12 max-w-[1600px] mx-auto divider">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- Coluna Esquerda: Informações e Endereço -->
+        <div class="lg:col-span-5 space-y-6 animate-on-scroll" style="animation: animationIn .8s ease-out 0s both;">
+          <span class="font-['Space_Mono'] text-[11px] text-[var(--c-forge)] tracking-[0.25em] uppercase font-bold">Localização Estratégica</span>
+          <!-- Respeito à quebra forçada original do site.md -->
+          <h2 class="font-['Oswald'] text-3xl md:text-5xl font-bold uppercase tracking-[0.01em] leading-[1.1]">
+            Nossa<br/>localização
+          </h2>
+          
+          <p class="font-['Manrope'] text-lg text-[var(--c-text-2)] font-light leading-[1.7]">
+            Localizados em um dos bairros mais tradicionais de Curitiba, com fácil acesso e estacionamento próprio para sua comodidade.
+          </p>
+
+          <div class="border-t border-[var(--c-border)] pt-6 space-y-4">
+            <div class="flex items-start gap-3">
+              <span class="text-[var(--c-forge)] mt-1"><i class="fa-solid fa-location-dot"></i></span>
+              <div>
+                <h4 class="font-['Manrope'] font-bold text-sm text-[var(--c-text)]">Endereço Completo:</h4>
+                <a href="https://maps.google.com/?q=Rua+Almirante+Tamandaré+1275+Juvevê+Curitiba" target="_blank" rel="noopener noreferrer" class="font-['Manrope'] text-sm text-[var(--c-text-3)] leading-[1.6] hover:text-[var(--c-forge)] transition-colors duration-200 block mt-1">
+                  Rua Almirante Tamandaré 1275, Juvevê<br/>Curitiba - PR, 80040-110
+                </a>
+              </div>
+            </div>
+            
+            <div class="flex items-start gap-3">
+              <span class="text-[var(--c-forge)] mt-1"><i class="fa-solid fa-clock"></i></span>
+              <div>
+                <!-- Manutenção sutil da grafia original 'Horarios' sem acento -->
+                <h4 class="font-['Manrope'] font-bold text-sm text-[var(--c-text)]">Horarios de Funcionamento:</h4>
+                <p class="font-['Manrope'] text-sm text-[var(--c-text-3)] leading-[1.6] mt-1">
+                  Segunda a Sexta: 8:00h às 18:00h<br/>Sábado e Domingo: Fechado
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Coluna Direita: Google Maps Iframe -->
+        <div class="lg:col-span-7 animate-on-scroll" style="animation: animationIn .8s ease-out .2s both;">
+          <div class="border border-[var(--c-border)] rounded-[var(--radius-lg)] overflow-hidden shadow-[var(--shadow-xl)] h-[400px] lg:h-[450px] relative w-full">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3603.496833188865!2d-49.25735892376249!3d-25.421644577566205!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94dce439c1098293%3A0xa8188a735ee36504!2sR.%20Alm.%20Tamandar%C3%A9%2C%201275%20-%20Juvev%C3%AA%2C%20Curitiba%20-%20PR%2C%2080040-110!5e0!3m2!1spt-BR!2sbr!4v1716912000000!5m2!1spt-BR!2sbr" 
+              width="100%" 
+              height="100%" 
+              style="border:0;" 
+              allowfullscreen="" 
+              loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER DARK (Contraste intencional do Design System v2 White) -->
+    <footer class="bg-[var(--c-engine)] text-white pt-20 pb-10 px-6 md:px-12 relative overflow-hidden">
+      <!-- Glow Decorativo no Canto Inferior -->
+      <div class="absolute bottom-[-100px] left-[-100px] w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(232,81,10,0.08),transparent_70%)] pointer-events-none rounded-full"></div>
+      
+      <div class="max-w-[1600px] mx-auto relative z-10">
+        
+        <!-- Linha Superior com Apelo e CTAs -->
+        <div class="text-center pb-16 border-b border-[rgba(255,255,255,0.06)]">
+          <h2 class="font-['Oswald'] text-3xl md:text-6xl font-bold uppercase leading-[0.95] tracking-[-0.01em] text-white">
+            Pronto para <span class="text-[var(--c-forge)]">confiar</span> no seu carro?
+          </h2>
+          
+          <div class="flex flex-wrap items-center justify-center gap-4 mt-10">
+            <a href="https://wa.me/554130103333?text=Ol%C3%A1!%20Gostaria%20de%20um%20agendamento!" target="_blank" class="relative overflow-hidden bg-[var(--c-forge)] text-white font-['Oswald'\] font-semibold text-[0.85rem] tracking-[0.15em] uppercase px-9 py-4 rounded-full shadow-[0_0_28px_rgba(232,81,10,0.25)] transition-all duration-300 hover:shadow-[0_0_48px_rgba(232,81,10,0.45)]">
+              <span class="absolute top-0 bottom-0 w-3/5 bg-gradient-to-r from-transparent via-[rgba(255,255,255,0.25)] to-transparent pointer-events-none animate-beam"></span>
+              Agendar Revisão Agora
+            </a>
+            <a href="#servicos" class="bg-[rgba(255,255,255,0.06)] text-white border border-[rgba(255,255,255,0.12)] font-['Oswald'] font-medium text-[0.85rem] tracking-[0.15em] uppercase px-9 py-[15px] rounded-full transition-colors duration-300 hover:border-[var(--c-forge)]">
+              Explorar Serviços
+            </a>
+          </div>
+        </div>
+
+        <!-- Grade Principal de Informações (4 Colunas) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 pt-16">
+          
+          <!-- Coluna 1: Marca (Motorlaff) -->
+          <div class="lg:col-span-4 space-y-4">
+            <h3 class="font-['Oswald'] text-3xl font-bold text-white uppercase tracking-[0.05em]">
+              MOTOR<span class="text-[var(--c-forge)]">LAFF</span>
+            </h3>
+            <p class="font-['Manrope'] text-sm text-[var(--c-ash)] leading-[1.7] max-w-sm">
+              Oficina mecânica especializada e completa para todas as marcas nacionais e importadas. Tecnologia avançada, garantia sólida e transparência total.
+            </p>
+          </div>
+
+          <!-- Coluna 2: Contatos -->
+          <div class="lg:col-span-3">
+            <h4 class="font-['Space_Mono'] text-[10px] tracking-[0.3em] uppercase text-[var(--c-silver)] mb-6">Contatos</h4>
+            <ul class="space-y-3">
+              <li class="flex items-center gap-2 white-space-nowrap">
+                <span class="text-[var(--c-forge)] text-xs"><i class="fa-solid fa-phone"></i></span>
+                <span class="font-['Space_Mono'] text-sm text-[var(--c-ash)]">(41) 3010-3333</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="text-[var(--c-forge)] text-xs"><i class="fa-solid fa-envelope"></i></span>
+                <a href="mailto:contato@motorlaff.com.br" class="font-['Space_Mono'] text-sm text-[var(--c-ash)] hover:text-[var(--c-forge)] transition-colors duration-200">contato@motorlaff.com.br</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Coluna 3: Endereço -->
+          <div class="lg:col-span-3">
+            <h4 class="font-['Space_Mono'] text-[10px] tracking-[0.3em] uppercase text-[var(--c-silver)] mb-6">Endereço</h4>
+            <div class="flex items-start gap-2">
+              <span class="text-[var(--c-forge)] text-xs mt-1"><i class="fa-solid fa-map-location-dot"></i></span>
+              <a href="https://maps.google.com/?q=Rua+Almirante+Tamandaré+1275+Juvevê+Curitiba" target="_blank" class="font-['Manrope'] text-sm text-[var(--c-ash)] leading-[1.6] hover:text-[var(--c-forge)] transition-colors duration-200">
+                Rua Almirante Tamandaré 1275,<br/>Juvevê - Curitiba/PR<br/>CEP 80040-110
+              </a>
+            </div>
+          </div>
+
+          <!-- Coluna 4: Redes Sociais / Links Rápidos -->
+          <div class="lg:col-span-2">
+            <h4 class="font-['Space_Mono'] text-[10px] tracking-[0.3em] uppercase text-[var(--c-silver)] mb-6">Redes Sociais</h4>
+            <div class="flex gap-4">
+              <a href="https://www.instagram.com/motorlaff_espaco_automotivo_/" target="_blank" class="w-10 h-10 rounded-full bg-[rgba(255,255,255,0.06)] hover:bg-[var(--c-forge)] text-white flex items-center justify-center transition-colors duration-300 text-lg">
+                <i class="fa-brands fa-instagram"></i>
+              </a>
+              <a href="https://wa.me/554130103333?text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20a%20Motorlaff!" target="_blank" class="w-10 h-10 rounded-full bg-[rgba(255,255,255,0.06)] hover:bg-[var(--c-forge)] text-white flex items-center justify-center transition-colors duration-300 text-lg">
+                <i class="fa-brands fa-whatsapp"></i>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Linha Inferior com Copyrights e AGÊNCIA BW -->
+        <div class="border-t border-[rgba(255,255,255,0.05)] mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <span class="font-['Space_Mono'] text-[10px] text-[var(--c-ash)] tracking-[0.15em] text-center md:text-left">
+            Motorlaff © 2026 Todos os direitos reservados | Powered by AGÊNCIA BW
+          </span>
+          <span class="font-['Space_Mono'] text-[10px] text-[var(--c-ash)] tracking-[0.1em] uppercase">
+            Sistema Conectado &amp; Operacional
+          </span>
+        </div>
+
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Botão Flutuante do WhatsApp Customizado (QLWapp Style) -->
+  <a href="https://wa.me/554130103333?text=Ol%C3%A1!%20Gostaria%20de%20um%20or%C3%A7amento!" target="_blank" class="whatsapp-float">
+    <div class="whatsapp-tooltip">Olá Tudo bem?</div>
+    <div class="whatsapp-btn">
+      <i class="fa-brands fa-whatsapp"></i>
+    </div>
+  </a>
+
+  <!-- Banner de Cookies Estilizado do Rodapé -->
+  <div id="cookieBanner" class="fixed bottom-0 left-0 w-full bg-[var(--c-engine)] border-t border-[rgba(255,255,255,0.1)] text-[var(--c-silver)] py-4 px-6 md:px-10 z-[1000] flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl transition-all duration-500 ease-in-out transform translate-y-full opacity-0">
+    <p class="font-['Manrope'] text-xs text-center sm:text-left max-w-2xl leading-[1.6]">
+      Este site utiliza cookies para permitir uma melhor experiência por parte do utilizador. Ao navegar no site estará a consentir a sua utilização.
+    </p>
+    <div class="flex items-center gap-4 flex-shrink-0">
+      <button id="acceptCookiesBtn" class="bg-white text-[var(--c-engine)] font-['Oswald'] text-[0.75rem] font-bold uppercase tracking-[0.1em] px-6 py-2.5 rounded hover:bg-[var(--c-forge)] hover:text-white transition-colors duration-200">
+        Ok
+      </button>
+      <button id="closeCookiesBtn" class="text-white hover:text-[var(--c-forge)] transition-colors duration-200 text-lg px-2">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Inicialização da Rolagem Suave via Lenis
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      smoothTouch: false // Desativa rolagem suave em touch/mobile para evitar lag e travamentos
+    });
+
+    // Sincroniza o ScrollTrigger do GSAP com o Lenis para atualizações corretas
+    lenis.on('scroll', ScrollTrigger.update);
+
+    function raf(time) { 
+      lenis.raf(time); 
+      requestAnimationFrame(raf); 
+    }
+    requestAnimationFrame(raf);
+
+    // Divisão do texto para efeitos de palavra por palavra (Word Reveal)
+    function splitTextToWords(el) {
+      const text = el.innerText;
+      const words = text.split(' ');
+      el.innerHTML = '';
+      words.forEach(word => {
+        const ww = document.createElement('span');
+        ww.classList.add('word-wrap');
+        ww.innerHTML = `<span class="word-inner">${word}&nbsp;</span>`;
+        el.appendChild(ww);
+      });
+    }
+    document.querySelectorAll('.split-animate').forEach(el => splitTextToWords(el));
+
+    // Timeline do Loader de Carregamento Inicial
+    const loadTl = gsap.timeline({
+      onComplete: () => {
+        document.body.style.opacity = 1;
+        initSiteAnimations();
+        showCookieBanner();
+      }
+    });
+    loadTl
+      .to('#loaderBar', { width: '100%', duration: 1.4, ease: 'power2.inOut' })
+      .to('.loader-text', { y: -40, opacity: 0, duration: 0.4 }, '-=0.1')
+      .to('#loader', { yPercent: -100, duration: 0.9, ease: 'power4.inOut' });
+
+    // Inicialização das Animações Principais do Site
+    function initSiteAnimations() {
+      // Animação de revelação de palavras nos títulos H1/H2
+      document.querySelectorAll('.split-animate').forEach(el => {
+        const words = el.querySelectorAll('.word-inner');
+        gsap.to(words, {
+          y: '0%', duration: 1, ease: 'power3.out', stagger: .025,
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 88%',
+            toggleActions: 'play none none reverse'
+          }
+        });
+      });
+
+      // Observer de entrada para elementos de rolagem gerais
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('animate');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px -5% 0px -5%' });
+      
+      document.querySelectorAll('.animate-on-scroll').forEach(el => io.observe(el));
+    }
+
+    // Gerenciador do Banner de Cookies
+    function showCookieBanner() {
+      const banner = document.getElementById('cookieBanner');
+      setTimeout(() => {
+        banner.classList.remove('translate-y-full', 'opacity-0');
+      }, 1000);
+    }
+
+    function hideCookieBanner() {
+      const banner = document.getElementById('cookieBanner');
+      banner.classList.add('translate-y-full', 'opacity-0');
+    }
+
+    document.getElementById('acceptCookiesBtn').addEventListener('click', hideCookieBanner);
+    document.getElementById('closeCookiesBtn').addEventListener('click', hideCookieBanner);
+
+    // Agendamentos Integrados com Mensagens para WhatsApp
+    document.getElementById('agendamentoForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const veiculo = document.getElementById('veiculo').value;
+      const servico = document.getElementById('servico').value;
+      const mensagem = document.getElementById('mensagem').value;
+      
+      const texto = `Olá! Gostaria de um orçamento!\n\nDados da Simulação:\n- Veículo: ${veiculo}\n- Serviço Desejado: ${servico}\n- Sintomas/Notas: ${mensagem}`;
+      const url = `https://wa.me/554130103333?text=${encodeURIComponent(texto)}`;
+      window.open(url, '_blank');
+    });
+
+    document.getElementById('agendarRapidoBtn').addEventListener('click', function() {
+      const nome = document.getElementById('nomeRapido').value;
+      const tel = document.getElementById('telRapido').value;
+      
+      if(!nome || !tel) {
+        alert('Por favor, preencha seu Nome e Telefone para continuar.');
+        return;
+      }
+      
+      const texto = `Olá! Gostaria de confirmar um Agendamento Rápido!\n\nMeus Dados:\n- Nome: ${nome}\n- Telefone: ${tel}`;
+      const url = `https://wa.me/554130103333?text=${encodeURIComponent(texto)}`;
+      window.open(url, '_blank');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Motorlaff — Design System v2 (White)</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Manrope:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
+<style>
+/* ============================================================
+   MOTORLAFF DESIGN SYSTEM v2 — WHITE THEME
+   ============================================================ */
+
+:root {
+  --c-bg:        #F7F5F2;
+  --c-surface:   #FFFFFF;
+  --c-surface-2: #EFEDE9;
+  --c-border:    #E2DFDA;
+  --c-border-md: #C8C4BE;
+  --c-text:      #0D0D0D;
+  --c-text-2:    #3D3A36;
+  --c-text-3:    #8C8884;
+  --c-text-4:    #B8B4AE;
+  --c-forge:     #E8510A;
+  --c-flame:     #FF6B35;
+  --c-ember:     #B8401C;
+  --c-engine:    #0D0D0D;
+  --c-steel:     #1C1C1C;
+  --c-carbon:    #2A2A2A;
+  --c-ash:       #8C8884;
+  --c-silver:    #C8C4BE;
+  --c-concrete:  #F7F5F2;
+  --font-display:'Oswald', sans-serif;
+  --font-body:   'Manrope', sans-serif;
+  --font-mono:   'Space Mono', monospace;
+  --space-xs:4px; --space-sm:8px; --space-md:16px;
+  --space-lg:32px; --space-xl:64px; --space-2xl:128px;
+  --radius-sm:8px; --radius-md:16px; --radius-lg:24px;
+  --radius-xl:40px; --radius-full:9999px;
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md:  0 4px 16px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+  --shadow-lg:  0 12px 40px rgba(0,0,0,0.10), 0 4px 8px rgba(0,0,0,0.04);
+  --shadow-xl:  0 24px 64px rgba(0,0,0,0.12), 0 8px 16px rgba(0,0,0,0.04);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background-color: var(--c-bg);
+  color: var(--c-text);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  opacity: 0;
+}
+
+.display { font-family: var(--font-display); }
+.mono    { font-family: var(--font-mono); }
+
+.noise-overlay {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 9000; opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.loader {
+  position: fixed; inset: 0;
+  background: var(--c-engine);
+  z-index: 10000;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+}
+.loader-text {
+  font-family: var(--font-display);
+  font-size: 4vw; font-weight: 700; letter-spacing: 0.3em;
+  text-transform: uppercase; color: #fff;
+}
+.loader-sub {
+  font-family: var(--font-mono);
+  font-size: 11px; letter-spacing: 0.4em; color: var(--c-ash);
+  text-transform: uppercase; margin-top: 8px;
+}
+.loader-bar {
+  position: absolute; bottom: 0; left: 0;
+  height: 3px; background: var(--c-forge); width: 0%;
+  box-shadow: 0 0 20px var(--c-forge);
+}
+
+.wrapper {
+  position: relative; z-index: 10;
+  background-color: var(--c-bg);
+  box-shadow: 0 50px 100px rgba(0,0,0,0.12);
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 11px; letter-spacing: 0.3em;
+  text-transform: uppercase; opacity: 0.4;
+  margin-bottom: 48px;
+}
+
+.divider { border-bottom: 1px solid var(--c-border); }
+
+.word-wrap {
+  display: inline-block; overflow: hidden;
+  vertical-align: top; padding-bottom: 0.08em;
+}
+.word-inner { display: inline-block; transform: translateY(110%); }
+
+@keyframes animationIn {
+  0%   { opacity: 0; transform: translateY(28px); filter: blur(8px); }
+  100% { opacity: 1; transform: translateY(0);    filter: blur(0px); }
+}
+.animate-on-scroll { animation-play-state: paused !important; }
+.animate-on-scroll.animate { animation-play-state: running !important; }
+
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee { animation: marquee 28s linear infinite; }
+
+@keyframes beam {
+  0%   { left: -120%; }
+  100% { left: 120%; }
+}
+.animate-beam { animation: beam 2.2s cubic-bezier(0.4,0,0.2,1) infinite; }
+
+@keyframes clip-reveal {
+  0%   { clip-path: inset(100% 0 0 0); }
+  100% { clip-path: inset(0% 0 0 0); }
+}
+
+@keyframes cardStackCycle {
+  0%,25%  { transform: translateY(0)     scale(1);    z-index:30; opacity:1;    filter:blur(0px); }
+  33%,58% { transform: translateY(-55px) scale(0.86); z-index:10; opacity:0.35; filter:blur(2px); }
+  66%,91% { transform: translateY(-28px) scale(0.93); z-index:20; opacity:0.65; filter:blur(1px); }
+  100%    { transform: translateY(0)     scale(1);    z-index:30; opacity:1;    filter:blur(0px); }
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+.animate-pulse-dot { animation: pulse 2s ease-in-out infinite; }
+
+.bg-grid-pattern {
+  background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,0.07) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+.card-white {
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
+  box-shadow: var(--shadow-md);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.card-white:hover {
+  box-shadow: var(--shadow-xl);
+  transform: translateY(-2px);
+}
+
+.img-wrap { overflow: hidden; }
+.img-wrap .card-img { transition: transform 1.5s ease; }
+.img-wrap:hover .card-img { transform: scale(1.08); }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--c-surface-2); }
+::-webkit-scrollbar-thumb { background: var(--c-border-md); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--c-forge); }
+</style>
+</head>
+<body>
+
+<div class="noise-overlay"></div>
+
+<div class="loader" id="loader">
+  <div class="loader-text">MOTORLAFF</div>
+  <div class="loader-sub">Design System v2 — White</div>
+  <div class="loader-bar" id="loaderBar"></div>
+</div>
+
+<!-- NAV pill sobre branco -->
+<nav style="position:fixed;top:0;width:100%;padding:20px 40px;display:flex;justify-content:center;z-index:50;">
+  <div style="background:rgba(255,255,255,0.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--c-border);border-radius:var(--radius-full);padding:10px 16px;display:inline-flex;align-items:center;gap:32px;box-shadow:var(--shadow-sm);">
+    <span style="font-family:var(--font-display);font-weight:700;font-size:16px;letter-spacing:.15em;color:var(--c-text);">ML</span>
+    <a href="#colors" style="font-family:var(--font-body);font-size:.82rem;color:var(--c-text-3);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--c-text)'" onmouseout="this.style.color='var(--c-text-3)'">Cores</a>
+    <a href="#typography" style="font-family:var(--font-body);font-size:.82rem;color:var(--c-text-3);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--c-text)'" onmouseout="this.style.color='var(--c-text-3)'">Tipografia</a>
+    <a href="#components" style="font-family:var(--font-body);font-size:.82rem;color:var(--c-text-3);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--c-text)'" onmouseout="this.style.color='var(--c-text-3)'">Componentes</a>
+    <a href="#motion" style="font-family:var(--font-body);font-size:.82rem;color:var(--c-text-3);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--c-text)'" onmouseout="this.style.color='var(--c-text-3)'">Animações</a>
+    <button style="background:var(--c-engine);color:#fff;font-family:var(--font-display);font-size:.75rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:9px 20px;border-radius:var(--radius-full);border:none;cursor:pointer;transition:background .2s;" onmouseover="this.style.background='var(--c-forge)'" onmouseout="this.style.background='var(--c-engine)'">Agendar</button>
+  </div>
+</nav>
+
+<div class="wrapper">
+
+<!-- HERO -->
+<section style="height:100vh;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;background:var(--c-surface);">
+  <div class="bg-grid-pattern" style="position:absolute;inset:0;opacity:.8;"></div>
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(232,81,10,0.05),transparent 70%);pointer-events:none;"></div>
+  <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--c-forge) 40%,var(--c-flame) 60%,transparent);opacity:.6;"></div>
+
+  <div style="position:relative;z-index:10;text-align:center;padding:0 24px;">
+    <p style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.5em;color:var(--c-text-3);text-transform:uppercase;margin-bottom:28px;" class="animate-on-scroll" style="animation:animationIn .8s ease-out 0s both;">DESIGN SYSTEM / v2.0 — WHITE EDITION</p>
+    <h1 class="split-animate display" style="font-size:clamp(3.5rem,10vw,9rem);line-height:.95;font-weight:700;letter-spacing:-.02em;color:var(--c-text);text-transform:uppercase;">
+      MOTOR<span style="color:var(--c-forge);">LAFF</span>
+    </h1>
+    <p style="font-family:var(--font-body);font-size:clamp(13px,1.5vw,17px);color:var(--c-text-3);margin-top:28px;letter-spacing:.03em;max-width:480px;margin-left:auto;margin-right:auto;" class="animate-on-scroll" style="animation:animationIn .8s ease-out .4s both;">
+      Oficina mecânica de alta performance — identidade visual construída sobre precisão, confiança e técnica.
+    </p>
+    <div style="display:inline-flex;align-items:center;gap:10px;background:var(--c-surface);border:1px solid var(--c-border);box-shadow:var(--shadow-sm);padding:10px 20px;border-radius:var(--radius-full);margin-top:40px;">
+      <div class="animate-pulse-dot" style="width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 8px rgba(34,197,94,.5);"></div>
+      <span style="font-family:var(--font-mono);font-size:11px;color:var(--c-text-3);letter-spacing:.2em;text-transform:uppercase;">Sistema Operacional</span>
+    </div>
+    <div style="display:flex;gap:14px;justify-content:center;margin-top:32px;" class="animate-on-scroll" style="animation:animationIn .8s ease-out .6s both;">
+      <button style="position:relative;overflow:hidden;background:var(--c-forge);color:#fff;font-family:var(--font-display);font-weight:600;font-size:14px;letter-spacing:.12em;text-transform:uppercase;padding:14px 28px;border-radius:var(--radius-full);border:none;cursor:pointer;transition:all .3s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(232,81,10,.35)';this.style.background='var(--c-flame)'" onmouseout="this.style.boxShadow='none';this.style.background='var(--c-forge)'">
+        <span style="position:absolute;top:0;bottom:0;width:60%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);pointer-events:none;" class="animate-beam"></span>
+        Agendar Revisão
+      </button>
+      <button style="background:transparent;color:var(--c-text);font-family:var(--font-display);font-weight:500;font-size:14px;letter-spacing:.12em;text-transform:uppercase;padding:13px 27px;border-radius:var(--radius-full);border:1px solid var(--c-border-md);cursor:pointer;transition:all .3s;" onmouseover="this.style.borderColor='var(--c-forge)';this.style.color='var(--c-forge)'" onmouseout="this.style.borderColor='var(--c-border-md)';this.style.color='var(--c-text)'">Ver Serviços</button>
+    </div>
+  </div>
+
+  <div style="position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:.35;">
+    <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.3em;color:var(--c-text-3);text-transform:uppercase;">Scroll</span>
+    <div style="width:1px;height:40px;background:linear-gradient(to bottom,var(--c-border-md),transparent);"></div>
+  </div>
+</section>
+
+<!-- 01 CORES -->
+<section id="colors" style="padding:100px 40px;max-width:1600px;margin:0 auto;" class="divider">
+  <div class="section-label">01 / Cores &amp; Superfícies</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;">
+
+    <div class="animate-on-scroll" style="animation:animationIn .7s ease-out 0s both;">
+      <div style="aspect-ratio:1;background:var(--c-bg);border:1px solid var(--c-border);border-radius:var(--radius-md);padding:24px;display:flex;flex-direction:column;justify-content:space-between;">
+        <span style="font-family:var(--font-body);font-weight:600;font-size:14px;">Background</span>
+        <div><span style="font-family:var(--font-mono);font-size:10px;color:var(--c-text-3);text-transform:uppercase;letter-spacing:.15em;">--c-bg</span><br><span style="font-family:var(--font-mono);font-size:11px;color:var(--c-text-3);">#F7F5F2</span></div>
+      </div>
+      <div style="padding:8px 0;font-family:var(--font-mono);font-size:10px;color:var(--c-text-3);">Fundo principal</div>
+    </div>
+
+    <div class="animate-on-scroll" style="animation:animationIn .7s ease-out .06s both;">
+      <div style="aspect-ratio:1;background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--radius-md);padding:24px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow-sm);">
+        <span style="font-family:var(--font-body);font-weight:600;font-size:14px;">Surface</span>
+        <div><span style="font-family:var(--font-mono);font-size:10px;color:var(--c-text-3);text-transform:uppercase;letter-spacing:.15em;">--c-surface</span><br><span style="font-family:var(--font-mono);font-size:11px;color:var(--c-text-3);">#FFFFFF</span></div>
+      </div>
+      <div style="padding:8px 0;font-family:var(--font-mono);font-size:10px;color:var(--c-text-3);">Cards / painéis</div>
+    </div>
+
+    <div class="animate-on-scroll" style="animation:animationIn .7s ease-out .12s both;">
+      <div style="aspect-ratio:1;background:var(--c-surface-2);border:1px solid var(--c-border);border-radius:var(--radius-md);padding:24px;display:flex;flex-direction:column;justify-content:space-between;">
+        <span style="font-family:var(--font-body);font-weight:600;font-size:14px;">Surface 2</span>
+        <div><span style="font-family:var(--font-mono);font-size:10px;color:var(--c-text-3);text-transform:uppercase;letter-spacing:.15em;">--c-surface-2</span><br><span style="font-family:var(--font-mono);font-size:11px;color:var(--c-text-3);">#EFEDE9</span></div>
+      </div>
+      <div style="padding:8px 0;font-family:var(--font-mono);font-size:10px;color:var(--c-text-3);">Superfície secundária</div>
+    </div>
+
+    <div class="animate-on-scroll" style="animation:animationIn .7s ease-out .18s both;">
+      <div style="aspect-ratio:1;background:var(--c-engine);border-radius:var(--radius-md);padding:24px;display:flex;flex-direction:column;justify-content:space-between;">
+        <span style="font-family:var(--font-body);font-weight:600;color:#fff;font-size:14px;">Engine Black</span>
+        <div><span style="font-family:var(--font-mono);font-size:10px;color:var(--c-ash);text-transform:uppercase;letter-spacing:.15em;">--c-engine</span><br><span style="font-family:var(--font-mono);font-size:11px;color:var(--c-ash);">#0D0D0D</span></div>
+      </div>
+      <div style="padding:8px 0;font-family:var(--font-mono);font-size:10px;color:var(--c-text-3);">Contraste / dark sections</div>
+    </div>
+
+    <div class="animate-on-scroll" style="animation:animationIn .7s ease-out .24s both;">
+      <div style="aspect-ratio:1;background:var(--c-forge);border-radius:var(--radius-md);padding:24px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 8px 32px rgba(232,81,10,0.3);">
+        <span style="font-family:var(--font-body);font-weight:600;color:#fff;font-size:14px;">Forge Orange</span>
+        <div><span style="font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.15em;">--c-forge</span><br><span style="font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,.7);">#E8510A</span></div>
+      </div>
+      <div style="padding:8px 0;font-family:var(--font-mono);font-size:10px;color:var(--c-text-3);">Acento principal</div>
+    </div>
+
+    <div class="animate-on-scroll" style="animation:animationIn .7s ease-out .30s both;">
+      <div style="aspect-ratio:1;background:var(--c-text-2);border-radius:var(--radius-md);padding:24px;display:flex;flex-direction:column;justify-content:space-between;">
+        <span style="font-family:var(--font-body);font-weight:600;color:#fff;font-size:14px;">Grafite</span>
+        <div><span style="font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.15em;">--c-text-2</span><br><span style="font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,.5);">#3D3A36</span></div>
+      </div>
+      <div style="padding:8px 0;font-family:var(--font-mono);font-size:10px;color:var(--c-text-3);">Texto body</div>
+    </div>
+
+    <div class="animate-on-scroll" style="animation:animationIn .7s ease-out .36s both;">
+      <div style="aspect-ratio:1;background:var(--c-text-3);border-radius:var(--radius-md);padding:24px;display:flex;flex-direction:column;justify-content:space-between;">
+        <span style="font-family:var(--font-body);font-weight:600;color:#fff;font-size:14px;">Ash Grey</span>
+        <div><span style="font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.15em;">--c-text-3</span><br><span style="font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,.7);">#8C8884</span></div>
+      </div>
+      <div style="padding:8px 0;font-family:var(--font-mono);font-size:10px;color:var(--c-text-3);">Texto secundário</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 02 TIPOGRAFIA -->
+<section id="typography" style="padding:100px 40px;max-width:1600px;margin:0 auto;" class="divider">
+  <div class="section-label">02 / Tipografia</div>
+  <div style="display:flex;flex-direction:column;gap:0;">
+    <div class="animate-on-scroll" style="animation:animationIn .8s ease-out 0s both;display:grid;grid-template-columns:200px 1fr 160px;gap:32px;align-items:baseline;padding:32px 0;border-bottom:1px solid var(--c-border);">
+      <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;opacity:.4;">Display H1</span>
+      <h1 class="display" style="font-size:clamp(3rem,7vw,7rem);font-weight:700;line-height:.95;text-transform:uppercase;letter-spacing:-.01em;">PRECISÃO</h1>
+      <span style="font-family:var(--font-mono);font-size:10px;opacity:.35;text-align:right;">Oswald 700 / 7vw</span>
+    </div>
+    <div class="animate-on-scroll" style="animation:animationIn .8s ease-out .08s both;display:grid;grid-template-columns:200px 1fr 160px;gap:32px;align-items:baseline;padding:32px 0;border-bottom:1px solid var(--c-border);">
+      <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;opacity:.4;">Heading 2</span>
+      <h2 class="display" style="font-size:clamp(2rem,4vw,3.5rem);font-weight:600;text-transform:uppercase;letter-spacing:.02em;">SERVIÇOS ESPECIALIZADOS</h2>
+      <span style="font-family:var(--font-mono);font-size:10px;opacity:.35;text-align:right;">Oswald 600 / 4vw</span>
+    </div>
+    <div class="animate-on-scroll" style="animation:animationIn .8s ease-out .12s both;display:grid;grid-template-columns:200px 1fr 160px;gap:32px;align-items:baseline;padding:32px 0;border-bottom:1px solid var(--c-border);">
+      <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;opacity:.4;">Heading 3</span>
+      <h3 style="font-family:var(--font-body);font-size:clamp(1.3rem,2.5vw,2rem);font-weight:700;letter-spacing:-.01em;">Motor Revisado com Garantia</h3>
+      <span style="font-family:var(--font-mono);font-size:10px;opacity:.35;text-align:right;">Manrope 700 / 2.5vw</span>
+    </div>
+    <div class="animate-on-scroll" style="animation:animationIn .8s ease-out .16s both;display:grid;grid-template-columns:200px 1fr 160px;gap:32px;align-items:baseline;padding:32px 0;border-bottom:1px solid var(--c-border);">
+      <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;opacity:.4;">Body Large</span>
+      <p style="font-family:var(--font-body);font-size:1.2rem;font-weight:300;line-height:1.7;color:var(--c-text-2);max-width:640px;">Nossa equipe de especialistas entrega diagnósticos precisos e soluções definitivas, com transparência total em cada etapa do processo.</p>
+      <span style="font-family:var(--font-mono);font-size:10px;opacity:.35;text-align:right;">Manrope 300 / 1.2rem</span>
+    </div>
+    <div class="animate-on-scroll" style="animation:animationIn .8s ease-out .20s both;display:grid;grid-template-columns:200px 1fr 160px;gap:32px;align-items:baseline;padding:32px 0;border-bottom:1px solid var(--c-border);">
+      <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;opacity:.4;">Body Standard</span>
+      <p style="font-family:var(--font-body);font-size:1rem;font-weight:400;line-height:1.65;color:var(--c-text-3);max-width:600px;">Utilizamos equipamentos de diagnose computadorizada de última geração para identificar com exatidão qualquer falha no seu veículo.</p>
+      <span style="font-family:var(--font-mono);font-size:10px;opacity:.35;text-align:right;">Manrope 400 / 1rem</span>
+    </div>
+    <div class="animate-on-scroll" style="animation:animationIn .8s ease-out .24s both;display:grid;grid-template-columns:200px 1fr 160px;gap:32px;align-items:baseline;padding:32px 0;">
+      <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;opacity:.4;">Caption / Mono</span>
+      <p style="font-family:var(--font-mono);font-size:.8rem;color:var(--c-text-3);letter-spacing:.15em;text-transform:uppercase;">DIAGNOSE / MOTOR / CÂMBIO / ELÉTRICA / REF: ML-2025</p>
+      <span style="font-family:var(--font-mono);font-size:10px;opacity:.35;text-align:right;">Space Mono / .8rem</span>
+    </div>
+  </div>
+</section>
+
+<!-- 03 ESPAÇAMENTO -->
+<section style="padding:100px 40px;max-width:1600px;margin:0 auto;" class="divider">
+  <div class="section-label">03 / Espaçamento &amp; Grid</div>
+  <div style="display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap;">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px;"><div style="background:var(--c-forge);width:4px;height:4px;"></div><span style="font-family:var(--font-mono);font-size:9px;color:var(--c-text-3);">xs/4</span></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px;"><div style="background:var(--c-forge);width:8px;height:8px;"></div><span style="font-family:var(--font-mono);font-size:9px;color:var(--c-text-3);">sm/8</span></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px;"><div style="background:var(--c-forge);width:16px;height:16px;"></div><span style="font-family:var(--font-mono);font-size:9px;color:var(--c-text-3);">md/16</span></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px;"><div style="background:var(--c-forge);width:32px;height:32px;"></div><span style="font-family:var(--font-mono);font-size:9px;color:var(--c-text-3);">lg/32</span></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px;"><div style="background:var(--c-forge);width:64px;height:64px;"></div><span style="font-family:var(--font-mono);font-size:9px;color:var(--c-text-3);">xl/64</span></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:8px;"><div style="background:var(--c-forge);width:128px;height:128px;"></div><span style="font-family:var(--font-mono);font-size:9px;color:var(--c-text-3);">2xl/128</span></div>
+  </div>
+  <div style="margin-top:60px;">
+    <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;opacity:.4;margin-bottom:24px;">Border Radius</p>
+    <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+      <div style="background:var(--c-surface);border:1px solid var(--c-border);box-shadow:var(--shadow-sm);width:80px;height:80px;border-radius:8px;display:flex;align-items:center;justify-content:center;"><span style="font-family:var(--font-mono);font-size:9px;color:var(--c-text-3);">sm/8</span></div>
+      <div style="background:var(--c-surface);border:1px solid var(--c-border);box-shadow:var(--shadow-sm);width:80px;height:80px;border-radius:16px;display:flex;align-items:center;justify-content:center;"><span style="font-family:var(--font-mono);font-size:9px;color:var(--c-text-3);">md/16</span></div>
+      <div style="background:var(--c-surface);border:1px solid var(--c-border);box-shadow:var(--shadow-sm);width:80px;height:80px;border-radius:24px;display:flex;align-items:center;justify-content:center;"><span style="font-family:var(--font-mono);font-size:9px;color:var(--c-text-3);">lg/24</span></div>
+      <div style="background:var(--c-surface);border:1px solid var(--c-border);box-shadow:var(--shadow-sm);width:80px;height:80px;border-radius:40px;display:flex;align-items:center;justify-content:center;"><span style="font-family:var(--font-mono);font-size:9px;color:var(--c-text-3);">xl/40</span></div>
+      <div style="background:var(--c-surface);border:1px solid var(--c-border);box-shadow:var(--shadow-sm);width:80px;height:80px;border-radius:9999px;display:flex;align-items:center;justify-content:center;"><span style="font-family:var(--font-mono);font-size:9px;color:var(--c-text-3);">full</span></div>
+    </div>
+  </div>
+  <div style="margin-top:60px;">
+    <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;opacity:.4;margin-bottom:24px;">Sombras (exclusivas v2)</p>
+    <div style="display:flex;align-items:flex-end;gap:24px;flex-wrap:wrap;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:16px;"><div style="background:var(--c-surface);width:80px;height:80px;border-radius:var(--radius-md);box-shadow:var(--shadow-sm);"></div><span style="font-family:var(--font-mono);font-size:9px;color:var(--c-text-3);">sm</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:16px;"><div style="background:var(--c-surface);width:80px;height:80px;border-radius:var(--radius-md);box-shadow:var(--shadow-md);"></div><span style="font-family:var(--font-mono);font-size:9px;color:var(--c-text-3);">md</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:16px;"><div style="background:var(--c-surface);width:80px;height:80px;border-radius:var(--radius-md);box-shadow:var(--shadow-lg);"></div><span style="font-family:var(--font-mono);font-size:9px;color:var(--c-text-3);">lg</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:16px;"><div style="background:var(--c-surface);width:80px;height:80px;border-radius:var(--radius-md);box-shadow:var(--shadow-xl);"></div><span style="font-family:var(--font-mono);font-size:9px;color:var(--c-text-3);">xl</span></div>
+      <div style="display:flex;flex-direction:column;align-items:center;gap:16px;"><div style="background:var(--c-surface);width:80px;height:80px;border-radius:var(--radius-md);box-shadow:0 0 28px rgba(232,81,10,0.2);"></div><span style="font-family:var(--font-mono);font-size:9px;color:var(--c-forge);">forge glow</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 BOTÕES -->
+<section id="components" style="padding:100px 40px;max-width:1600px;margin:0 auto;" class="divider">
+  <div class="section-label">04 / Botões &amp; Ações</div>
+  <div style="display:flex;flex-wrap:wrap;gap:20px;align-items:center;">
+
+    <button class="animate-on-scroll" style="animation:animationIn .7s ease-out 0s both;position:relative;overflow:hidden;display:inline-flex;align-items:center;gap:10px;background:var(--c-forge);color:#fff;font-family:var(--font-display);font-weight:600;font-size:14px;letter-spacing:.12em;text-transform:uppercase;padding:14px 28px;border-radius:var(--radius-full);border:none;cursor:pointer;transition:all .3s;" onmouseover="this.style.background='var(--c-flame)';this.style.boxShadow='0 8px 32px rgba(232,81,10,.35)'" onmouseout="this.style.background='var(--c-forge)';this.style.boxShadow='none'">
+      <span style="position:absolute;top:0;bottom:0;width:60%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);pointer-events:none;" class="animate-beam"></span>
+      Agendar Revisão
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    </button>
+
+    <button class="animate-on-scroll" style="animation:animationIn .7s ease-out .06s both;display:inline-flex;align-items:center;gap:10px;background:var(--c-engine);color:#fff;font-family:var(--font-display);font-weight:500;font-size:14px;letter-spacing:.12em;text-transform:uppercase;padding:14px 28px;border-radius:var(--radius-full);border:none;cursor:pointer;transition:all .3s;" onmouseover="this.style.background='var(--c-forge)'" onmouseout="this.style.background='var(--c-engine)'">
+      Ver Serviços
+    </button>
+
+    <button class="animate-on-scroll" style="animation:animationIn .7s ease-out .12s both;display:inline-flex;align-items:center;gap:10px;background:transparent;color:var(--c-text);font-family:var(--font-display);font-weight:500;font-size:14px;letter-spacing:.12em;text-transform:uppercase;padding:13px 27px;border-radius:var(--radius-full);border:1px solid var(--c-border-md);cursor:pointer;transition:all .3s;" onmouseover="this.style.borderColor='var(--c-forge)';this.style.color='var(--c-forge)'" onmouseout="this.style.borderColor='var(--c-border-md)';this.style.color='var(--c-text)'">
+      Orçamento
+    </button>
+
+    <button class="animate-on-scroll" style="animation:animationIn .7s ease-out .18s both;position:relative;display:inline-flex;overflow:hidden;padding:1px;border-radius:var(--radius-full);background:transparent;border:none;cursor:pointer;" id="beamBtn">
+      <span style="position:absolute;inset:-100%;animation:spin 3s linear infinite;background:conic-gradient(from 90deg at 50% 50%,transparent 0%,transparent 75%,var(--c-forge) 100%);opacity:0;transition:opacity .3s;" class="beam-spinner"></span>
+      <span style="position:absolute;inset:0;border-radius:var(--radius-full);background:var(--c-border);transition:opacity .3s;" class="beam-bg"></span>
+      <span style="display:flex;align-items:center;gap:8px;background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--radius-full);padding:13px 26px;position:relative;font-family:var(--font-display);font-weight:500;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--c-text-2);box-shadow:var(--shadow-sm);">
+        Diagnose Online
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </span>
+    </button>
+
+    <button class="animate-on-scroll" style="animation:animationIn .7s ease-out .24s both;width:48px;height:48px;border-radius:50%;background:var(--c-surface);border:1px solid var(--c-border);box-shadow:var(--shadow-sm);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;" id="iconBtn" onmouseover="this.style.background='var(--c-forge)';this.style.borderColor='var(--c-forge)';this.style.boxShadow='0 0 16px rgba(232,81,10,.3)'" onmouseout="this.style.background='var(--c-surface)';this.style.borderColor='var(--c-border)';this.style.boxShadow='var(--shadow-sm)'">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--c-text)" stroke-width="1.5" id="iconBtnSvg"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+    </button>
+
+    <a href="#" class="display animate-on-scroll" style="animation:animationIn .7s ease-out .30s both;font-size:2.5rem;font-weight:700;text-transform:uppercase;color:var(--c-text);text-decoration:none;border-bottom:2px solid var(--c-forge);padding-bottom:4px;transition:color .2s;letter-spacing:.02em;" onmouseover="this.style.color='var(--c-forge)'" onmouseout="this.style.color='var(--c-text)'">
+      FALE CONOSCO ↗
+    </a>
+  </div>
+</section>
+
+<!-- 05 CARDS -->
+<section style="padding:100px 0;background:var(--c-surface-2);" class="divider">
+  <div style="max-width:1600px;margin:0 auto;padding:0 40px;">
+    <div class="section-label">05 / Cards</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;">
+
+      <div class="animate-on-scroll card-white" style="animation:animationIn .7s ease-out 0s both;border-radius:var(--radius-lg);padding:32px;display:flex;flex-direction:column;justify-content:space-between;min-height:360px;position:relative;overflow:hidden;">
+        <div style="position:absolute;bottom:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(232,81,10,0.06),transparent 70%);pointer-events:none;border-radius:50%;"></div>
+        <div>
+          <div style="width:44px;height:44px;border-radius:12px;background:rgba(232,81,10,.08);border:1px solid rgba(232,81,10,.15);display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--c-forge)" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          </div>
+          <h3 style="font-family:var(--font-display);font-size:1.4rem;font-weight:600;color:var(--c-text);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px;">Revisão Completa</h3>
+          <p style="font-family:var(--font-body);font-size:.9rem;color:var(--c-text-3);line-height:1.65;">Verificação completa de 80 itens com laudo técnico digital e histórico no sistema.</p>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--c-border);padding-top:20px;margin-top:20px;">
+          <span style="font-family:var(--font-mono);font-size:10px;color:var(--c-text-3);letter-spacing:.2em;text-transform:uppercase;">A partir de R$ 280</span>
+          <button style="width:36px;height:36px;border-radius:50%;background:var(--c-surface-2);border:1px solid var(--c-border);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;" onmouseover="this.style.background='var(--c-forge)';this.style.borderColor='var(--c-forge)';this.querySelector('svg').setAttribute('stroke','#fff')" onmouseout="this.style.background='var(--c-surface-2)';this.style.borderColor='var(--c-border)';this.querySelector('svg').setAttribute('stroke','var(--c-text)')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--c-text)" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="animate-on-scroll card-white" style="animation:animationIn .7s ease-out .08s both;border-radius:var(--radius-lg);padding:32px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;min-height:360px;text-align:center;overflow:hidden;">
+        <p style="font-family:var(--font-body);font-size:1rem;color:var(--c-text-3);margin-top:16px;">Clientes atendidos<br/>por mês</p>
+        <div style="position:relative;display:flex;align-items:center;justify-content:center;width:180px;height:180px;">
+          <svg width="180" height="180" viewBox="0 0 200 200" style="transform:rotate(-90deg);position:absolute;">
+            <circle cx="100" cy="100" r="85" fill="none" stroke="var(--c-border)" stroke-width="2"/>
+            <circle cx="100" cy="100" r="85" fill="none" stroke="var(--c-forge)" stroke-width="2" stroke-dasharray="534" stroke-dashoffset="107" stroke-linecap="round"/>
+          </svg>
+          <span style="font-family:var(--font-display);font-size:3rem;font-weight:700;color:var(--c-text);position:relative;z-index:1;">480<span style="color:var(--c-forge);">+</span></span>
+        </div>
+        <span style="font-family:var(--font-mono);font-size:10px;color:var(--c-forge);letter-spacing:.25em;text-transform:uppercase;">▲ 12% este mês</span>
+      </div>
+
+      <div class="animate-on-scroll card-white" style="animation:animationIn .7s ease-out .16s both;border-radius:var(--radius-lg);padding:32px;display:flex;flex-direction:column;justify-content:space-between;min-height:360px;">
+        <div>
+          <div style="display:flex;gap:3px;margin-bottom:20px;"><span style="color:var(--c-forge);">★★★★★</span></div>
+          <h3 style="font-family:var(--font-display);font-size:1.2rem;color:var(--c-text);text-transform:uppercase;margin-bottom:12px;letter-spacing:.04em;">Confiança Total</h3>
+          <p style="font-family:var(--font-body);font-size:.9rem;color:var(--c-text-2);line-height:1.7;">"Levei meu Corolla para uma revisão completa. Laudo claro, prazo cumprido e preço justo. Nunca mais vou em outro lugar."</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;border-top:1px solid var(--c-border);padding-top:20px;margin-top:20px;">
+          <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--c-forge),var(--c-ember));display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;color:#fff;">R</div>
+          <div>
+            <p style="font-family:var(--font-body);font-size:.85rem;color:var(--c-text);font-weight:600;">Ricardo M.</p>
+            <p style="font-family:var(--font-mono);font-size:.7rem;color:var(--c-text-3);">Toyota Corolla 2019</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="animate-on-scroll" style="animation:animationIn .7s ease-out .24s both;background:var(--c-engine);border-radius:var(--radius-lg);padding:32px;display:flex;flex-direction:column;justify-content:space-between;min-height:360px;position:relative;overflow:hidden;" onmouseover="this.querySelector('.hover-glow').style.opacity='1'" onmouseout="this.querySelector('.hover-glow').style.opacity='0'">
+        <div style="position:absolute;bottom:-80px;right:-80px;width:260px;height:260px;background:radial-gradient(circle,rgba(232,81,10,0.2),transparent 70%);border-radius:50%;transition:opacity .7s;opacity:0;" class="hover-glow"></div>
+        <div style="position:relative;z-index:1;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px;">
+            <span style="font-family:var(--font-display);font-size:1.1rem;color:#fff;text-transform:uppercase;letter-spacing:.08em;">Emergência</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--c-ash)" stroke-width="1.5"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+          </div>
+          <p style="font-family:var(--font-body);font-size:.9rem;color:var(--c-ash);line-height:1.65;max-width:260px;">Carro parado? Atendimento emergencial 24h com guincho incluso para clientes cadastrados.</p>
+        </div>
+        <div style="position:relative;z-index:1;">
+          <div style="font-family:var(--font-mono);font-size:11px;color:var(--c-silver);letter-spacing:.12em;margin-bottom:8px;">(11) 9 8765-4321</div>
+          <div style="font-family:var(--font-mono);font-size:11px;color:var(--c-silver);letter-spacing:.12em;">contato@motorlaff.com.br</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Card Stack -->
+    <div style="margin-top:60px;">
+      <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;opacity:.4;margin-bottom:32px;">Card Stack — Serviços em Destaque</p>
+      <div style="display:flex;align-items:center;gap:60px;flex-wrap:wrap;">
+        <div style="position:relative;width:280px;height:280px;">
+          <div style="position:absolute;inset:0;background:var(--c-surface-2);border:1px solid var(--c-border);border-radius:var(--radius-lg);padding:28px;box-shadow:var(--shadow-md);animation:cardStackCycle 10s infinite ease-in-out;animation-delay:-6.6s;display:flex;flex-direction:column;justify-content:space-between;">
+            <div style="width:36px;height:36px;border-radius:50%;background:var(--c-border);border:1px solid var(--c-border-md);display:flex;align-items:center;justify-content:center;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--c-text-3)" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+            </div>
+            <div><div style="background:var(--c-border);height:3px;border-radius:2px;width:80%;margin-bottom:8px;"></div><div style="background:var(--c-border);height:3px;border-radius:2px;width:55%;"></div></div>
+          </div>
+          <div style="position:absolute;inset:0;background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--radius-lg);padding:28px;box-shadow:var(--shadow-lg);animation:cardStackCycle 10s infinite ease-in-out;animation-delay:-3.3s;display:flex;flex-direction:column;justify-content:space-between;">
+            <div style="width:36px;height:36px;border-radius:50%;background:rgba(232,81,10,.08);border:1px solid rgba(232,81,10,.15);display:flex;align-items:center;justify-content:center;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--c-forge)" stroke-width="1.5"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+            </div>
+            <div><div style="background:var(--c-border);height:3px;border-radius:2px;width:80%;margin-bottom:8px;"></div><div style="background:rgba(232,81,10,.25);height:3px;border-radius:2px;width:40%;"></div></div>
+          </div>
+          <div style="position:absolute;inset:0;background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--radius-lg);padding:28px;box-shadow:var(--shadow-xl);animation:cardStackCycle 10s infinite ease-in-out;animation-delay:0s;display:flex;flex-direction:column;justify-content:space-between;">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div style="width:36px;height:36px;border-radius:50%;background:rgba(232,81,10,.1);border:1px solid rgba(232,81,10,.2);display:flex;align-items:center;justify-content:center;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--c-forge)" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+              </div>
+              <div style="display:flex;gap:6px;"><div style="width:8px;height:8px;border-radius:50%;background:var(--c-border);"></div><div style="width:8px;height:8px;border-radius:50%;background:var(--c-forge);"></div><div style="width:8px;height:8px;border-radius:50%;background:var(--c-border);"></div></div>
+            </div>
+            <div>
+              <div style="font-family:var(--font-display);font-size:.9rem;color:var(--c-text);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;">Motor</div>
+              <div style="background:var(--c-border);height:3px;border-radius:2px;width:80%;margin-bottom:6px;"></div>
+              <div style="background:var(--c-forge);height:3px;border-radius:2px;width:55%;opacity:.5;"></div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <p style="font-family:var(--font-mono);font-size:.7rem;color:var(--c-text-3);border-left:2px solid var(--c-forge);padding-left:12px;line-height:1.7;max-width:320px;">cardStackCycle — 3 cards ciclando com translateY + scale + blur + opacity. Delay escalonado por -3.3s.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 06 NAVEGAÇÃO -->
+<section style="padding:100px 40px;max-width:1600px;margin:0 auto;" class="divider">
+  <div class="section-label">06 / Navegação</div>
+
+  <div style="margin-bottom:48px;">
+    <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;opacity:.4;margin-bottom:16px;">Pill Nav — Light (padrão v2)</p>
+    <div style="background:rgba(255,255,255,0.9);backdrop-filter:blur(20px);border:1px solid var(--c-border);border-radius:var(--radius-full);padding:10px 16px;display:inline-flex;align-items:center;gap:28px;box-shadow:var(--shadow-md);">
+      <span style="font-family:var(--font-display);font-weight:700;font-size:16px;letter-spacing:.1em;">ML</span>
+      <a href="#" style="font-family:var(--font-body);font-size:.85rem;color:var(--c-text-3);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--c-text)'" onmouseout="this.style.color='var(--c-text-3)'">Serviços</a>
+      <a href="#" style="font-family:var(--font-body);font-size:.85rem;color:var(--c-text-3);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--c-text)'" onmouseout="this.style.color='var(--c-text-3)'">Sobre</a>
+      <a href="#" style="font-family:var(--font-body);font-size:.85rem;color:var(--c-text-3);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--c-text)'" onmouseout="this.style.color='var(--c-text-3)'">Contato</a>
+      <button style="background:var(--c-engine);color:#fff;font-family:var(--font-body);font-size:.8rem;padding:8px 18px;border-radius:var(--radius-full);border:none;cursor:pointer;transition:background .2s;" onmouseover="this.style.background='var(--c-forge)'" onmouseout="this.style.background='var(--c-engine)'">Agendar</button>
+    </div>
+  </div>
+
+  <div style="margin-bottom:48px;">
+    <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;opacity:.4;margin-bottom:16px;">Pill Nav — Forge Accent</p>
+    <div style="background:var(--c-engine);border-radius:var(--radius-full);padding:10px 16px;display:inline-flex;align-items:center;gap:28px;">
+      <span style="font-family:var(--font-display);font-weight:700;font-size:16px;letter-spacing:.1em;color:#fff;">ML</span>
+      <a href="#" style="font-family:var(--font-body);font-size:.85rem;color:var(--c-ash);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--c-ash)'">Serviços</a>
+      <a href="#" style="font-family:var(--font-body);font-size:.85rem;color:var(--c-ash);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--c-ash)'">Sobre</a>
+      <button style="position:relative;overflow:hidden;background:var(--c-forge);color:#fff;font-family:var(--font-body);font-size:.8rem;padding:8px 18px;border-radius:var(--radius-full);border:none;cursor:pointer;transition:all .2s;" onmouseover="this.style.boxShadow='0 0 20px rgba(232,81,10,.5)'" onmouseout="this.style.boxShadow='none'">
+        <span style="position:absolute;top:0;bottom:0;width:80%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);pointer-events:none;" class="animate-beam"></span>
+        Agendar
+      </button>
+    </div>
+  </div>
+
+  <div>
+    <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;opacity:.4;margin-bottom:16px;">Badges &amp; Status Tags</p>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;">
+      <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;padding:5px 14px;border-radius:var(--radius-full);background:rgba(34,197,94,.08);color:#16a34a;border:1px solid rgba(34,197,94,.2);">● Operacional</span>
+      <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;padding:5px 14px;border-radius:var(--radius-full);background:rgba(232,81,10,.08);color:var(--c-forge);border:1px solid rgba(232,81,10,.2);">Em Andamento</span>
+      <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;padding:5px 14px;border-radius:var(--radius-full);background:rgba(234,179,8,.08);color:#b45309;border:1px solid rgba(234,179,8,.2);">Aguardando Peça</span>
+      <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;padding:5px 14px;border-radius:var(--radius-full);background:var(--c-surface-2);color:var(--c-text-3);border:1px solid var(--c-border);">Concluído</span>
+      <span style="font-family:var(--font-display);font-size:11px;letter-spacing:.15em;text-transform:uppercase;padding:5px 14px;border-radius:var(--radius-full);background:var(--c-forge);color:#fff;font-weight:600;">Destaque</span>
+    </div>
+  </div>
+</section>
+
+<!-- 07 ANIMAÇÕES -->
+<section id="motion" style="padding:100px 0;background:var(--c-bg);" class="divider">
+  <div style="max-width:1600px;margin:0 auto;padding:0 40px;">
+    <div class="section-label">07 / Animações</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px;">
+
+      <div class="card-white" style="border-radius:var(--radius-lg);padding:32px;">
+        <h4 style="font-family:var(--font-display);font-size:1.1rem;color:var(--c-text);text-transform:uppercase;margin-bottom:16px;letter-spacing:.1em;">Intro Blur Fade</h4>
+        <div style="background:var(--c-surface-2);border:1px solid var(--c-border);border-radius:var(--radius-md);padding:24px;height:80px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+          <span style="font-family:var(--font-display);color:var(--c-forge);font-size:1.5rem;text-transform:uppercase;letter-spacing:.1em;animation:animationIn 1s ease-out both;">MOTORLAFF</span>
+        </div>
+        <p style="font-family:var(--font-mono);font-size:.65rem;color:var(--c-text-3);margin-top:12px;border-left:2px solid var(--c-forge);padding-left:10px;line-height:1.6;">opacity:0 + translateY(28px) + blur(8px) → opacity:1 + translateY(0) + blur(0)</p>
+      </div>
+
+      <div class="card-white" style="border-radius:var(--radius-lg);padding:32px;">
+        <h4 style="font-family:var(--font-display);font-size:1.1rem;color:var(--c-text);text-transform:uppercase;margin-bottom:16px;letter-spacing:.1em;">Clip Reveal</h4>
+        <div style="display:flex;gap:8px;height:80px;">
+          <div style="flex:1;background:var(--c-surface-2);border-radius:4px;animation:clip-reveal 1.8s cubic-bezier(.77,0,.175,1) infinite alternate;animation-delay:0s;"></div>
+          <div style="flex:1;background:var(--c-border-md);border-radius:4px;animation:clip-reveal 1.8s cubic-bezier(.77,0,.175,1) infinite alternate;animation-delay:.2s;"></div>
+          <div style="flex:1;background:var(--c-text-3);border-radius:4px;animation:clip-reveal 1.8s cubic-bezier(.77,0,.175,1) infinite alternate;animation-delay:.4s;"></div>
+          <div style="flex:1;background:var(--c-forge);border-radius:4px;animation:clip-reveal 1.8s cubic-bezier(.77,0,.175,1) infinite alternate;animation-delay:.6s;"></div>
+        </div>
+        <p style="font-family:var(--font-mono);font-size:.65rem;color:var(--c-text-3);margin-top:12px;border-left:2px solid var(--c-border-md);padding-left:10px;line-height:1.6;">clip-path: inset(100% 0 0 0) → inset(0 0 0 0) — delay escalonado por coluna</p>
+      </div>
+
+      <div class="card-white" style="border-radius:var(--radius-lg);padding:32px;">
+        <h4 style="font-family:var(--font-display);font-size:1.1rem;color:var(--c-text);text-transform:uppercase;margin-bottom:16px;letter-spacing:.1em;">Infinite Marquee</h4>
+        <div style="overflow:hidden;position:relative;padding:16px 0;border-top:1px solid var(--c-border);border-bottom:1px solid var(--c-border);mask-image:linear-gradient(90deg,transparent,black 8%,black 92%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,black 8%,black 92%,transparent);">
+          <div class="animate-marquee" style="display:flex;width:200%;white-space:nowrap;gap:32px;">
+            <span style="font-family:var(--font-display);font-size:.9rem;color:var(--c-text-3);text-transform:uppercase;letter-spacing:.2em;">MOTOR ✦ CÂMBIO ✦ FREIOS ✦ ELÉTRICA ✦ SUSPENSÃO ✦ DIAGNOSE ✦ INJEÇÃO ✦ AR-COND ✦&nbsp;</span>
+            <span style="font-family:var(--font-display);font-size:.9rem;color:var(--c-text-3);text-transform:uppercase;letter-spacing:.2em;">MOTOR ✦ CÂMBIO ✦ FREIOS ✦ ELÉTRICA ✦ SUSPENSÃO ✦ DIAGNOSE ✦ INJEÇÃO ✦ AR-COND ✦&nbsp;</span>
+          </div>
+        </div>
+        <p style="font-family:var(--font-mono);font-size:.65rem;color:var(--c-text-3);margin-top:12px;border-left:2px solid var(--c-border-md);padding-left:10px;line-height:1.6;">translateX(-50%) loop 28s — container width:200% com mask alpha</p>
+      </div>
+
+      <div class="card-white" style="border-radius:var(--radius-lg);padding:32px;">
+        <h4 style="font-family:var(--font-display);font-size:1.1rem;color:var(--c-text);text-transform:uppercase;margin-bottom:16px;letter-spacing:.1em;">Word Reveal</h4>
+        <h2 class="split-animate display" style="font-size:2rem;color:var(--c-text);line-height:1.1;text-transform:uppercase;font-weight:700;">
+          Sua máquina <span style="color:var(--c-forge);">em boas mãos.</span>
+        </h2>
+        <p style="font-family:var(--font-mono);font-size:.65rem;color:var(--c-text-3);margin-top:12px;border-left:2px solid var(--c-border-md);padding-left:10px;line-height:1.6;">.word-inner { translateY(110%) → 0 } — GSAP ScrollTrigger stagger 0.02s</p>
+      </div>
+
+      <div class="card-white" style="border-radius:var(--radius-lg);padding:32px;">
+        <h4 style="font-family:var(--font-display);font-size:1.1rem;color:var(--c-text);text-transform:uppercase;margin-bottom:16px;letter-spacing:.1em;">Image Hover Scale</h4>
+        <div class="img-wrap" style="border-radius:var(--radius-md);height:120px;cursor:pointer;border:1px solid var(--c-border);">
+          <div class="card-img" style="width:100%;height:100%;background:linear-gradient(135deg,var(--c-surface-2) 0%,var(--c-forge) 50%,var(--c-engine) 100%);display:flex;align-items:center;justify-content:center;">
+            <span style="font-family:var(--font-display);font-size:2rem;color:rgba(255,255,255,.25);text-transform:uppercase;letter-spacing:.3em;">HOVER</span>
+          </div>
+        </div>
+        <p style="font-family:var(--font-mono);font-size:.65rem;color:var(--c-text-3);margin-top:12px;border-left:2px solid var(--c-border-md);padding-left:10px;line-height:1.6;">transition: transform 1.5s ease — scale(1.1) no hover</p>
+      </div>
+
+      <div class="card-white" style="border-radius:var(--radius-lg);padding:32px;">
+        <h4 style="font-family:var(--font-display);font-size:1.1rem;color:var(--c-text);text-transform:uppercase;margin-bottom:16px;letter-spacing:.1em;">Beam Sweep</h4>
+        <div style="height:80px;display:flex;align-items:center;justify-content:center;">
+          <button style="position:relative;overflow:hidden;background:var(--c-forge);color:#fff;font-family:var(--font-display);font-weight:600;font-size:.85rem;letter-spacing:.15em;text-transform:uppercase;padding:14px 32px;border-radius:var(--radius-full);border:none;cursor:pointer;">
+            <span style="position:absolute;top:0;bottom:0;width:50%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);pointer-events:none;" class="animate-beam"></span>
+            AGENDAR
+          </button>
+        </div>
+        <p style="font-family:var(--font-mono);font-size:.65rem;color:var(--c-text-3);margin-top:12px;border-left:2px solid var(--c-forge);padding-left:10px;line-height:1.6;">left: -120% → 120% — 2.2s cubic-bezier(0.4,0,0.2,1)</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 08 FORMULÁRIOS -->
+<section style="padding:100px 40px;max-width:1600px;margin:0 auto;" class="divider">
+  <div class="section-label">08 / Formulários</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;max-width:900px;">
+    <div style="display:flex;flex-direction:column;gap:20px;">
+      <div>
+        <label style="font-family:var(--font-mono);font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--c-text-3);display:block;margin-bottom:8px;">Placa do Veículo</label>
+        <input type="text" placeholder="ABC-1D23" style="width:100%;background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--radius-sm);padding:14px 16px;font-family:var(--font-mono);font-size:.95rem;color:var(--c-text);letter-spacing:.15em;outline:none;transition:border-color .2s,box-shadow .2s;box-shadow:var(--shadow-sm);" onfocus="this.style.borderColor='var(--c-forge)';this.style.boxShadow='0 0 0 3px rgba(232,81,10,.1)'" onblur="this.style.borderColor='var(--c-border)';this.style.boxShadow='var(--shadow-sm)'"/>
+      </div>
+      <div>
+        <label style="font-family:var(--font-mono);font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--c-text-3);display:block;margin-bottom:8px;">Tipo de Serviço</label>
+        <select style="width:100%;background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--radius-sm);padding:14px 16px;font-family:var(--font-body);font-size:.95rem;color:var(--c-text);outline:none;appearance:none;cursor:pointer;transition:border-color .2s;box-shadow:var(--shadow-sm);" onfocus="this.style.borderColor='var(--c-forge)'" onblur="this.style.borderColor='var(--c-border)'">
+          <option>Revisão Completa</option><option>Troca de Óleo</option><option>Freios</option><option>Diagnose Eletrônica</option>
+        </select>
+      </div>
+      <div>
+        <label style="font-family:var(--font-mono);font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--c-text-3);display:block;margin-bottom:8px;">Descrição do Problema</label>
+        <textarea rows="4" placeholder="Descreva o problema..." style="width:100%;background:var(--c-surface);border:1px solid var(--c-border);border-radius:var(--radius-sm);padding:14px 16px;font-family:var(--font-body);font-size:.95rem;color:var(--c-text);outline:none;resize:vertical;transition:border-color .2s,box-shadow .2s;box-shadow:var(--shadow-sm);" onfocus="this.style.borderColor='var(--c-forge)';this.style.boxShadow='0 0 0 3px rgba(232,81,10,.1)'" onblur="this.style.borderColor='var(--c-border)';this.style.boxShadow='var(--shadow-sm)'"></textarea>
+      </div>
+      <button style="background:var(--c-engine);color:#fff;font-family:var(--font-display);font-weight:600;font-size:.85rem;letter-spacing:.15em;text-transform:uppercase;padding:16px;border-radius:var(--radius-sm);border:none;cursor:pointer;transition:all .2s;" onmouseover="this.style.background='var(--c-forge)';this.style.boxShadow='0 8px 24px rgba(232,81,10,.25)'" onmouseout="this.style.background='var(--c-engine)';this.style.boxShadow='none'">Solicitar Orçamento</button>
+    </div>
+    <div style="background:var(--c-surface);border:1px solid var(--c-border);box-shadow:var(--shadow-lg);padding:32px;border-radius:var(--radius-lg);display:flex;flex-direction:column;gap:20px;">
+      <div style="border-left:3px solid var(--c-forge);padding-left:12px;">
+        <h3 style="font-family:var(--font-display);color:var(--c-text);font-size:1.1rem;text-transform:uppercase;letter-spacing:.1em;">Agendamento Rápido</h3>
+        <p style="font-family:var(--font-mono);font-size:10px;color:var(--c-text-3);margin-top:4px;letter-spacing:.1em;">Resposta em até 30 minutos</p>
+      </div>
+      <div>
+        <label style="font-family:var(--font-mono);font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--c-text-3);display:block;margin-bottom:8px;">Nome</label>
+        <input type="text" placeholder="Seu nome completo" style="width:100%;background:var(--c-bg);border:1px solid var(--c-border);border-radius:var(--radius-sm);padding:13px 16px;font-family:var(--font-body);font-size:.9rem;color:var(--c-text);outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='var(--c-forge)'" onblur="this.style.borderColor='var(--c-border)'"/>
+      </div>
+      <div>
+        <label style="font-family:var(--font-mono);font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--c-text-3);display:block;margin-bottom:8px;">Telefone</label>
+        <input type="tel" placeholder="(11) 9 0000-0000" style="width:100%;background:var(--c-bg);border:1px solid var(--c-border);border-radius:var(--radius-sm);padding:13px 16px;font-family:var(--font-mono);font-size:.9rem;color:var(--c-text);letter-spacing:.1em;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='var(--c-forge)'" onblur="this.style.borderColor='var(--c-border)'"/>
+      </div>
+      <button style="position:relative;overflow:hidden;background:var(--c-forge);color:#fff;font-family:var(--font-display);font-weight:600;font-size:.85rem;letter-spacing:.15em;text-transform:uppercase;padding:16px;border-radius:var(--radius-sm);border:none;cursor:pointer;margin-top:8px;transition:all .2s;" onmouseover="this.style.boxShadow='0 8px 32px rgba(232,81,10,.35)'" onmouseout="this.style.boxShadow='none'">
+        <span style="position:absolute;top:0;bottom:0;width:40%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);pointer-events:none;" class="animate-beam"></span>
+        Agendar Agora
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE MARCAS -->
+<section style="padding:60px 0;background:var(--c-surface);overflow:hidden;position:relative;border-top:1px solid var(--c-border);border-bottom:1px solid var(--c-border);">
+  <div style="position:absolute;left:0;top:0;bottom:0;width:80px;background:linear-gradient(90deg,var(--c-surface),transparent);z-index:10;"></div>
+  <div style="position:absolute;right:0;top:0;bottom:0;width:80px;background:linear-gradient(-90deg,var(--c-surface),transparent);z-index:10;"></div>
+  <div class="animate-marquee" style="display:flex;width:200%;align-items:center;gap:60px;white-space:nowrap;">
+    <span style="font-family:var(--font-display);font-size:1.5rem;color:var(--c-border-md);text-transform:uppercase;letter-spacing:.4em;">TOYOTA</span>
+    <span style="font-family:var(--font-display);font-size:1.5rem;color:var(--c-border-md);text-transform:uppercase;letter-spacing:.4em;">HONDA</span>
+    <span style="font-family:var(--font-display);font-size:1.5rem;color:var(--c-border-md);text-transform:uppercase;letter-spacing:.4em;">VOLKSWAGEN</span>
+    <span style="font-family:var(--font-display);font-size:1.5rem;color:var(--c-border-md);text-transform:uppercase;letter-spacing:.4em;">FORD</span>
+    <span style="font-family:var(--font-display);font-size:1.5rem;color:var(--c-border-md);text-transform:uppercase;letter-spacing:.4em;">CHEVROLET</span>
+    <span style="font-family:var(--font-display);font-size:1.5rem;color:var(--c-border-md);text-transform:uppercase;letter-spacing:.4em;">HYUNDAI</span>
+    <span style="font-family:var(--font-display);font-size:1.5rem;color:var(--c-border-md);text-transform:uppercase;letter-spacing:.4em;">KIA</span>
+    <span style="font-family:var(--font-display);font-size:1.5rem;color:var(--c-border-md);text-transform:uppercase;letter-spacing:.4em;">JEEP</span>
+    <span style="font-family:var(--font-display);font-size:1.5rem;color:var(--c-border-md);text-transform:uppercase;letter-spacing:.4em;">BMW</span>
+    <span style="font-family:var(--font-display);font-size:1.5rem;color:var(--c-border-md);text-transform:uppercase;letter-spacing:.4em;">AUDI</span>
+    <span style="font-family:var(--font-display);font-size:1.5rem;color:var(--c-border-md);text-transform:uppercase;letter-spacing:.4em;">TOYOTA</span>
+    <span style="font-family:var(--font-display);font-size:1.5rem;color:var(--c-border-md);text-transform:uppercase;letter-spacing:.4em;">HONDA</span>
+    <span style="font-family:var(--font-display);font-size:1.5rem;color:var(--c-border-md);text-transform:uppercase;letter-spacing:.4em;">VOLKSWAGEN</span>
+    <span style="font-family:var(--font-display);font-size:1.5rem;color:var(--c-border-md);text-transform:uppercase;letter-spacing:.4em;">FORD</span>
+    <span style="font-family:var(--font-display);font-size:1.5rem;color:var(--c-border-md);text-transform:uppercase;letter-spacing:.4em;">CHEVROLET</span>
+    <span style="font-family:var(--font-display);font-size:1.5rem;color:var(--c-border-md);text-transform:uppercase;letter-spacing:.4em;">HYUNDAI</span>
+    <span style="font-family:var(--font-display);font-size:1.5rem;color:var(--c-border-md);text-transform:uppercase;letter-spacing:.4em;">KIA</span>
+    <span style="font-family:var(--font-display);font-size:1.5rem;color:var(--c-border-md);text-transform:uppercase;letter-spacing:.4em;">JEEP</span>
+    <span style="font-family:var(--font-display);font-size:1.5rem;color:var(--c-border-md);text-transform:uppercase;letter-spacing:.4em;">BMW</span>
+    <span style="font-family:var(--font-display);font-size:1.5rem;color:var(--c-border-md);text-transform:uppercase;letter-spacing:.4em;">AUDI</span>
+  </div>
+</section>
+
+<!-- FOOTER dark (contraste intencional no tema branco) -->
+<footer style="background:var(--c-engine);padding:80px 40px 40px;position:relative;overflow:hidden;">
+  <div style="position:absolute;bottom:-100px;left:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(232,81,10,0.10),transparent 70%);pointer-events:none;border-radius:50%;"></div>
+  <div style="max-width:1600px;margin:0 auto;position:relative;z-index:1;">
+    <div style="height:2px;background:linear-gradient(90deg,var(--c-forge),var(--c-flame) 40%,transparent);margin-bottom:60px;opacity:.6;"></div>
+    <div style="text-align:center;padding-bottom:60px;border-bottom:1px solid rgba(255,255,255,.06);">
+      <h2 class="display split-animate" style="font-size:clamp(2.5rem,6vw,6rem);font-weight:700;color:#fff;text-transform:uppercase;line-height:.95;letter-spacing:-.01em;">Pronto para <span style="color:var(--c-forge);">confiar</span><br>no seu carro?</h2>
+      <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-top:40px;">
+        <button style="position:relative;overflow:hidden;background:var(--c-forge);color:#fff;font-family:var(--font-display);font-weight:600;font-size:.85rem;letter-spacing:.15em;text-transform:uppercase;padding:16px 36px;border-radius:var(--radius-full);border:none;cursor:pointer;box-shadow:0 0 28px rgba(232,81,10,0.3);transition:all .3s;" onmouseover="this.style.boxShadow='0 0 48px rgba(232,81,10,.5)'" onmouseout="this.style.boxShadow='0 0 28px rgba(232,81,10,.3)'">
+          <span style="position:absolute;top:0;bottom:0;width:50%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);pointer-events:none;" class="animate-beam"></span>
+          Agendar Agora
+        </button>
+        <button style="background:rgba(255,255,255,.06);color:#fff;font-family:var(--font-display);font-weight:500;font-size:.85rem;letter-spacing:.15em;text-transform:uppercase;padding:15px 36px;border-radius:var(--radius-full);border:1px solid rgba(255,255,255,.12);cursor:pointer;transition:all .3s;" onmouseover="this.style.borderColor='var(--c-forge)'" onmouseout="this.style.borderColor='rgba(255,255,255,.12)'">Ver Serviços</button>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;padding-top:60px;">
+      <div>
+        <h3 class="display" style="font-size:2rem;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;">MOTOR<span style="color:var(--c-forge);">LAFF</span></h3>
+        <p style="font-family:var(--font-body);font-size:.85rem;color:var(--c-ash);line-height:1.65;max-width:280px;">Oficina mecânica especializada em todas as marcas. Diagnose computadorizada, garantia e transparência em cada serviço.</p>
+      </div>
+      <div>
+        <h4 style="font-family:var(--font-mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--c-silver);margin-bottom:20px;">Serviços</h4>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+          <li><a href="#" style="font-family:var(--font-body);font-size:.85rem;color:var(--c-ash);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--c-forge)'" onmouseout="this.style.color='var(--c-ash)'">Revisão Geral</a></li>
+          <li><a href="#" style="font-family:var(--font-body);font-size:.85rem;color:var(--c-ash);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--c-forge)'" onmouseout="this.style.color='var(--c-ash)'">Motor</a></li>
+          <li><a href="#" style="font-family:var(--font-body);font-size:.85rem;color:var(--c-ash);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--c-forge)'" onmouseout="this.style.color='var(--c-ash)'">Câmbio</a></li>
+          <li><a href="#" style="font-family:var(--font-body);font-size:.85rem;color:var(--c-ash);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--c-forge)'" onmouseout="this.style.color='var(--c-ash)'">Elétrica</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="font-family:var(--font-mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--c-silver);margin-bottom:20px;">Empresa</h4>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+          <li><a href="#" style="font-family:var(--font-body);font-size:.85rem;color:var(--c-ash);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--c-forge)'" onmouseout="this.style.color='var(--c-ash)'">Sobre Nós</a></li>
+          <li><a href="#" style="font-family:var(--font-body);font-size:.85rem;color:var(--c-ash);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--c-forge)'" onmouseout="this.style.color='var(--c-ash)'">Equipe</a></li>
+          <li><a href="#" style="font-family:var(--font-body);font-size:.85rem;color:var(--c-ash);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--c-forge)'" onmouseout="this.style.color='var(--c-ash)'">Blog</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="font-family:var(--font-mono);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--c-silver);margin-bottom:20px;">Contato</h4>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+          <li><a href="#" style="font-family:var(--font-mono);font-size:.8rem;color:var(--c-ash);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--c-forge)'" onmouseout="this.style.color='var(--c-ash)'">(11) 9 8765-4321</a></li>
+          <li><a href="#" style="font-family:var(--font-mono);font-size:.8rem;color:var(--c-ash);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--c-forge)'" onmouseout="this.style.color='var(--c-ash)'">contato@motorlaff.com.br</a></li>
+          <li><a href="#" style="font-family:var(--font-mono);font-size:.8rem;color:var(--c-ash);text-decoration:none;transition:color .2s;" onmouseover="this.style.color='var(--c-forge)'" onmouseout="this.style.color='var(--c-ash)'">motorlaff.com.br</a></li>
+        </ul>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.05);margin-top:60px;padding-top:28px;display:flex;justify-content:space-between;align-items:center;">
+      <span style="font-family:var(--font-mono);font-size:.7rem;color:var(--c-carbon);letter-spacing:.15em;">© 2025 MOTORLAFF — DESIGN SYSTEM v2 WHITE</span>
+      <span style="font-family:var(--font-mono);font-size:.7rem;color:var(--c-carbon);letter-spacing:.1em;">ALL SYSTEMS OPERATIONAL</span>
+    </div>
+  </div>
+</footer>
+
+</div>
+
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  const lenis = new Lenis({
+    duration: 1.2,
+    easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smooth: true,
+  });
+  function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+  requestAnimationFrame(raf);
+
+  function splitTextToWords(el) {
+    const text = el.innerText;
+    const words = text.split(' ');
+    el.innerHTML = '';
+    words.forEach(word => {
+      const ww = document.createElement('span');
+      ww.classList.add('word-wrap');
+      ww.innerHTML = `<span class="word-inner">${word}&nbsp;</span>`;
+      el.appendChild(ww);
+    });
+  }
+  document.querySelectorAll('.split-animate').forEach(el => splitTextToWords(el));
+
+  const loadTl = gsap.timeline({
+    onComplete: () => { document.body.style.opacity = 1; initSite(); }
+  });
+  loadTl
+    .to('#loaderBar', { width: '100%', duration: 1.4, ease: 'power2.inOut' })
+    .to('.loader-text', { y: -40, opacity: 0, duration: 0.4 }, '-=0.1')
+    .to('#loader', { yPercent: -100, duration: 0.9, ease: 'power4.inOut' });
+
+  function initSite() {
+    document.querySelectorAll('.split-animate').forEach(el => {
+      const words = el.querySelectorAll('.word-inner');
+      gsap.to(words, {
+        y: '0%', duration: 1, ease: 'power3.out', stagger: .025,
+        scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none reverse' }
+      });
+    });
+  }
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('animate'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.15, rootMargin: '0px -5% 0px -5%' });
+  document.querySelectorAll('.animate-on-scroll').forEach(el => io.observe(el));
+
+  const beamBtn = document.getElementById('beamBtn');
+  if (beamBtn) {
+    const spinner = beamBtn.querySelector('.beam-spinner');
+    const bg = beamBtn.querySelector('.beam-bg');
+    beamBtn.addEventListener('mouseenter', () => { if(spinner) spinner.style.opacity='1'; if(bg) bg.style.opacity='0'; });
+    beamBtn.addEventListener('mouseleave', () => { if(spinner) spinner.style.opacity='0'; if(bg) bg.style.opacity='1'; });
+  }
+
+  const iconBtn = document.getElementById('iconBtn');
+  const iconSvg = document.getElementById('iconBtnSvg');
+  if (iconBtn && iconSvg) {
+    iconBtn.addEventListener('mouseenter', () => iconSvg.setAttribute('stroke', '#fff'));
+    iconBtn.addEventListener('mouseleave', () => iconSvg.setAttribute('stroke', 'var(--c-text)'));
+  }
+</script>
+</body>
+</html>
