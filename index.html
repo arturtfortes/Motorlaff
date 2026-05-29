@@ -80,7 +80,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   
   <!-- FontAwesome para Ícones -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'" />
 
   <style>
     /* ============================================================
@@ -370,7 +370,7 @@
       
       <!-- Vídeo de Background Premium (Puro, Sem Filtros de Iluminação) -->
       <div class="absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
-        <video class="w-full h-full object-cover opacity-100" autoplay loop muted playsinline poster="assets/hero-bg.jpeg">
+        <video class="w-full h-full object-cover opacity-100" autoplay loop muted playsinline preload="metadata" poster="assets/hero-bg.jpeg">
           <source src="assets/hero-video.webm" type="video/webm">
         </video>
         <!-- Gradiente suave inferior apenas para mesclar verticalmente com o fundo da página -->
@@ -1196,7 +1196,7 @@
     }
     document.querySelectorAll('.split-animate').forEach(el => splitTextToWords(el));
 
-    // Timeline do Loader de Carregamento Inicial
+    // Timeline do Loader de Carregamento Inicial (Otimizada para carregamento rápido)
     const loadTl = gsap.timeline({
       onComplete: () => {
         document.body.style.opacity = 1;
@@ -1205,9 +1205,9 @@
       }
     });
     loadTl
-      .to('#loaderBar', { width: '100%', duration: 1.4, ease: 'power2.inOut' })
-      .to('.loader-text', { y: -40, opacity: 0, duration: 0.4 }, '-=0.1')
-      .to('#loader', { yPercent: -100, duration: 0.9, ease: 'power4.inOut' });
+      .to('#loaderBar', { width: '100%', duration: 0.4, ease: 'power1.inOut' })
+      .to('.loader-text', { y: -20, opacity: 0, duration: 0.2 }, '-=0.05')
+      .to('#loader', { yPercent: -100, duration: 0.5, ease: 'power3.inOut' });
 
     // Inicialização das Animações Principais do Site
     function initSiteAnimations() {
