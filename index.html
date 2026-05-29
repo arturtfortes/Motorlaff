@@ -309,6 +309,9 @@
 </head>
 <body>
 
+  <!-- Link de Acessibilidade para Pular para o Conteúdo Principal (WCAG) -->
+  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:bg-[var(--c-forge)] focus:text-white focus:px-6 focus:py-3 focus:rounded-full focus:z-[9999] focus:shadow-lg font-['Space_Mono'] text-xs uppercase tracking-[0.1em] transition-all">Pular para o conteúdo principal</a>
+
   <!-- Textura Premium de Ruído Oculta/Overlay -->
   <div class="noise-overlay"></div>
 
@@ -342,8 +345,8 @@
             <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Fale Conosco
           </a>
           
-          <!-- Botão Hambúrguer Mobile -->
-          <button id="menuToggle" aria-label="Abrir Menu de Navegação" class="md:hidden text-[var(--c-text)] hover:text-[var(--c-forge)] transition-all duration-300 text-xl focus:outline-none p-1.5 flex items-center justify-center rounded-full hover:bg-[var(--c-surface-2)]">
+          <!-- Botão Hambúrguer Mobile com Acessibilidade Aprimorada (WCAG) -->
+          <button id="menuToggle" aria-label="Abrir Menu de Navegação" aria-expanded="false" aria-controls="mobileMenu" class="md:hidden text-[var(--c-text)] hover:text-[var(--c-forge)] transition-all duration-300 text-xl focus:outline-none p-1.5 flex items-center justify-center rounded-full hover:bg-[var(--c-surface-2)]">
             <i class="fa-solid fa-bars transition-transform duration-300" aria-hidden="true"></i>
           </button>
         </div>
@@ -363,7 +366,7 @@
 
   <!-- Wrapper Principal -->
   <div class="wrapper">
-    <main>
+    <main id="main-content">
 
     <!-- DOBRA 02: HERO SECTION -->
     <section class="min-h-screen relative flex items-center justify-center overflow-hidden bg-[var(--c-surface)] pt-24 md:pt-0">
@@ -390,6 +393,12 @@
         <div class="lg:col-span-7 text-left animate-on-scroll" style="animation: animationIn .8s ease-out 0s both;">
           <div class="card-white rounded-[var(--radius-lg)] p-8 md:p-10 shadow-[var(--shadow-xl)] relative overflow-hidden bg-[rgba(255,255,255,0.88)] backdrop-blur-[20px] -webkit-backdrop-blur-[20px]">
             <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[var(--c-forge)] to-[var(--c-flame)]"></div>
+            
+            <!-- Prova Social Acima da Dobra (Conversão & E-E-A-T Aprimorados) -->
+            <div class="flex items-center gap-2 mb-6 bg-[rgba(232,81,10,0.06)] px-3.5 py-1.5 rounded-full w-fit border border-[rgba(232,81,10,0.12)]">
+              <span class="flex text-[var(--c-forge)] text-xs gap-0.5" aria-hidden="true"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></span>
+              <span class="font-['Space_Mono'] text-[10px] font-bold text-[var(--c-text-2)]">4,7/5 Google Reviews</span>
+            </div>
             
             <h1 class="font-['Oswald'] text-[3.2rem] md:text-[4.5rem] lg:text-[4.8rem] font-bold uppercase leading-[0.95] tracking-[-0.02em] text-[var(--c-text)] split-animate">
               MOTOR<span class="text-[var(--c-forge)]">LAFF</span>
@@ -930,32 +939,32 @@
       </div>
     </section>
 
-    <!-- MARQUEE INFINITO DE MARCAS PARCEIRAS -->
-    <section class="py-12 bg-[var(--c-surface)] overflow-hidden relative border-t border-b border-[var(--c-border)]">
+    <!-- MARQUEE INFINITO DE MARCAS PARCEIRAS (Acessibilidade & Contraste Aprimorados) -->
+    <section class="py-12 bg-[var(--c-surface)] overflow-hidden relative border-t border-b border-[var(--c-border)]" aria-hidden="true">
       <div class="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-[var(--c-surface)] to-transparent z-10"></div>
       <div class="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-[var(--c-surface)] to-transparent z-10"></div>
       <div class="animate-marquee flex w-[200%] items-center gap-[60px] whitespace-nowrap">
-        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">TOYOTA</span>
-        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">HONDA</span>
-        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">VOLKSWAGEN</span>
-        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">FORD</span>
-        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">CHEVROLET</span>
-        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">HYUNDAI</span>
-        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">KIA</span>
-        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">JEEP</span>
-        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">BMW</span>
-        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">AUDI</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-ash)] tracking-[0.4em] uppercase">TOYOTA</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-ash)] tracking-[0.4em] uppercase">HONDA</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-ash)] tracking-[0.4em] uppercase">VOLKSWAGEN</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-ash)] tracking-[0.4em] uppercase">FORD</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-ash)] tracking-[0.4em] uppercase">CHEVROLET</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-ash)] tracking-[0.4em] uppercase">HYUNDAI</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-ash)] tracking-[0.4em] uppercase">KIA</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-ash)] tracking-[0.4em] uppercase">JEEP</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-ash)] tracking-[0.4em] uppercase">BMW</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-ash)] tracking-[0.4em] uppercase">AUDI</span>
         <!-- Duplicação para loop contínuo -->
-        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">TOYOTA</span>
-        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">HONDA</span>
-        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">VOLKSWAGEN</span>
-        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">FORD</span>
-        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">CHEVROLET</span>
-        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">HYUNDAI</span>
-        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">KIA</span>
-        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">JEEP</span>
-        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">BMW</span>
-        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-border-md)] tracking-[0.4em] uppercase">AUDI</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-ash)] tracking-[0.4em] uppercase">TOYOTA</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-ash)] tracking-[0.4em] uppercase">HONDA</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-ash)] tracking-[0.4em] uppercase">VOLKSWAGEN</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-ash)] tracking-[0.4em] uppercase">FORD</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-ash)] tracking-[0.4em] uppercase">CHEVROLET</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-ash)] tracking-[0.4em] uppercase">HYUNDAI</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-ash)] tracking-[0.4em] uppercase">KIA</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-ash)] tracking-[0.4em] uppercase">JEEP</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-ash)] tracking-[0.4em] uppercase">BMW</span>
+        <span class="font-['Oswald'] text-lg md:text-2xl text-[var(--c-ash)] tracking-[0.4em] uppercase">AUDI</span>
       </div>
     </section>
 
@@ -1237,8 +1246,9 @@
       document.querySelectorAll('.animate-on-scroll').forEach(el => io.observe(el));
     }
 
-    // Gerenciador do Banner de Cookies
+    // Gerenciador do Banner de Cookies com Persistência em LocalStorage
     function showCookieBanner() {
+      if (localStorage.getItem('cookieConsentAccepted') === 'true') return;
       const banner = document.getElementById('cookieBanner');
       setTimeout(() => {
         banner.classList.remove('translate-y-full', 'opacity-0');
@@ -1250,7 +1260,10 @@
       banner.classList.add('translate-y-full', 'opacity-0');
     }
 
-    document.getElementById('acceptCookiesBtn').addEventListener('click', hideCookieBanner);
+    document.getElementById('acceptCookiesBtn').addEventListener('click', () => {
+      localStorage.setItem('cookieConsentAccepted', 'true');
+      hideCookieBanner();
+    });
     document.getElementById('closeCookiesBtn').addEventListener('click', hideCookieBanner);
 
     // Agendamentos Integrados com Mensagens para WhatsApp
@@ -1280,7 +1293,7 @@
       window.open(url, '_blank', 'noopener,noreferrer');
     });
 
-    // Gerenciamento do Menu Mobile Hambúrguer com GSAP
+    // Gerenciamento do Menu Mobile Hambúrguer com GSAP & Acessibilidade (WCAG)
     const menuToggle = document.getElementById('menuToggle');
     const mobileMenu = document.getElementById('mobileMenu');
     const navContainer = document.getElementById('navContainer');
@@ -1288,43 +1301,48 @@
     let isMenuOpen = false;
 
     menuToggle.addEventListener('click', () => {
-      isMenuOpen = !isMenuOpen;
-      
       if (isMenuOpen) {
-        // Mudar ícone para X com rotação
-        toggleIcon.className = 'fa-solid fa-xmark transition-transform duration-300';
-        toggleIcon.style.transform = 'rotate(90deg)';
-        
-        // Exibir o menu e animar com GSAP
-        mobileMenu.classList.remove('hidden');
-        mobileMenu.style.display = 'flex';
-        mobileMenu.style.opacity = 0;
-        mobileMenu.style.height = 0;
-
-        // Animação da pílula navContainer
-        gsap.to(navContainer, {
-          borderRadius: '24px',
-          duration: 0.4,
-          ease: 'power2.out'
-        });
-
-        // Animação dos itens entrando verticalmente
-        gsap.to(mobileMenu, {
-          height: 'auto',
-          opacity: 1,
-          duration: 0.4,
-          ease: 'power2.out'
-        });
-
-        gsap.fromTo('.mobile-link', 
-          { y: -10, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.3, stagger: 0.05, delay: 0.1, ease: 'power2.out' }
-        );
-
-      } else {
         closeMobileMenu();
+      } else {
+        openMobileMenu();
       }
     });
+
+    function openMobileMenu() {
+      if (isMenuOpen) return;
+      isMenuOpen = true;
+      
+      // Mudar ícone para X com rotação
+      toggleIcon.className = 'fa-solid fa-xmark transition-transform duration-300';
+      toggleIcon.style.transform = 'rotate(90deg)';
+      menuToggle.setAttribute('aria-expanded', 'true');
+      
+      // Exibir o menu e animar com GSAP
+      mobileMenu.classList.remove('hidden');
+      mobileMenu.style.display = 'flex';
+      mobileMenu.style.opacity = 0;
+      mobileMenu.style.height = 0;
+
+      // Animação da pílula navContainer
+      gsap.to(navContainer, {
+        borderRadius: '24px',
+        duration: 0.4,
+        ease: 'power2.out'
+      });
+
+      // Animação dos itens entrando verticalmente
+      gsap.to(mobileMenu, {
+        height: 'auto',
+        opacity: 1,
+        duration: 0.4,
+        ease: 'power2.out'
+      });
+
+      gsap.fromTo('.mobile-link', 
+        { y: -10, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.3, stagger: 0.05, delay: 0.1, ease: 'power2.out' }
+      );
+    }
 
     function closeMobileMenu() {
       if (!isMenuOpen) return;
@@ -1333,6 +1351,7 @@
       // Mudar ícone de volta para Hambúrguer
       toggleIcon.className = 'fa-solid fa-bars transition-transform duration-300';
       toggleIcon.style.transform = 'rotate(0deg)';
+      menuToggle.setAttribute('aria-expanded', 'false');
 
       // Animar fechamento da pílula
       gsap.to(navContainer, {
